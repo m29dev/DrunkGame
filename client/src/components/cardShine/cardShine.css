@@ -1,0 +1,63 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,700);
+/* $dumb-color: saturate(mix(red, darken(purple, 10), 30), 100); */
+
+.card {
+    width: 300px;
+    height: 400px;
+    border: 1px solid rgba(70, 70, 70, 0.082);
+    background: -webkit-linear-gradient(
+        top,
+        rgba(219, 219, 219, 0),
+        transparent
+    );
+    color: aliceblue;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    margin: 50px auto;
+    text-align: center;
+    line-height: 400px;
+    box-shadow: inset 5px 5px 20px rgba(255, 255, 255, 0.1);
+    animation: normal;
+    -webkit-animation: shimmy 6s ease-in-out infinite;
+}
+p {
+    margin-top: 0;
+    font-family: Oswald, sans-serif;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.2);
+}
+@keyframes shimmy {
+    0%,
+    100% {
+        transform: rotateY(0deg) skewX(0deg);
+    }
+    50% {
+        transform: rotateY(18deg) skewX(1deg);
+    }
+}
+.shine {
+    width: 1000px;
+    height: 100px;
+    margin-left: -100px;
+    transform: rotate(18deg);
+    background: -webkit-linear-gradient(
+        top,
+        transparent,
+        rgba(200, 200, 200, 0.1),
+        transparent
+    );
+    position: absolute;
+    animation: normal;
+    -webkit-animation: shine 6s ease-in-out infinite;
+}
+@keyframes shine {
+    0%,
+    100% {
+        margin-top: -100px;
+    }
+    50% {
+        margin-top: 800px;
+    }
+}

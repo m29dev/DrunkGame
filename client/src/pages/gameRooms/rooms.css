@@ -1,0 +1,14 @@
+.round-box {
+    display: flex;
+}
+
+.round-quantity-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 120px;
+}
+.round-quantity-box h1 {
+    padding: 0px;
+    margin: 0px;
+}
