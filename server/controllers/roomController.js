@@ -19,6 +19,7 @@ const room_create = async (req, res) => {
             roomRound: 0,
             users: [],
             game: false,
+            gameCurrentUser: [],
         })
 
         const savedRoom = await room.save()
@@ -69,8 +70,31 @@ const room_user_join = async (req, res) => {
     }
 }
 
+const Qna = require('../models/Qna')
+const add_database = async (req, res) => {
+    try {
+        const dataArray = []
+
+        dataArray.forEach((item) => {
+            const newQna = new Qna({
+                question: item.tresc,
+                answers: [...item.odp],
+                correctAnswer: item.odp_poprawna,
+            })
+
+            // newQna.save()
+        })
+
+        res.json({ message: 'add_database' })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 module.exports = {
     room_create,
     room_read,
     room_user_join,
+
+    add_database,
 }

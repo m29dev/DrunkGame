@@ -5,17 +5,15 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const authRoutes = require('./routes/authRoutes')
 const roomRoutes = require('./routes/roomRoutes')
+const qnaRoutes = require('./routes/qnaRoutes')
 const http = require('http')
 const dbConnect = require('./config/DatabaseConfig')
 const Room = require('./models/Room')
 const {
-    saveRoundResults,
-    calculateGamePoints,
-    saveClientRoundReview,
-    startGameConfig,
     roomUserJoin,
     clientDisconnect,
     gameUserReady,
+    gameNextPlayerRound,
 } = require('./config/GameConfig')
 
 dotenv.config()
@@ -66,6 +64,12 @@ io.on('connection', async (socket) => {
             gameUserReady(room_id, ready, socket)
         })
 
+        // on next player round
+        socket.on('gameNextPlayerRound', async ({ room_id }) => {
+            // advance round
+            gameNextPlayerRound(room_id, socket)
+        })
+
         // on end game
         socket.on('gameEnd', async ({ roomId }) => {
             const res = await Room.findOne({ roomId })
@@ -109,3 +113,4 @@ dbConnect()
 //routes
 app.use(authRoutes)
 app.use(roomRoutes)
+app.use(qnaRoutes)

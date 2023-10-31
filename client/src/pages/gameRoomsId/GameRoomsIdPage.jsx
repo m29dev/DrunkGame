@@ -5,6 +5,7 @@ import { useUserReadMutation } from '../../services/authService'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRoomInfo, setUserInfo } from '../../redux/authSlice'
 import './roomId.css'
+import Game from '../../components/game/Game'
 
 const GameRoomsIdPage = () => {
     const { roomInfo, authInfo } = useSelector((state) => state.auth)
@@ -75,11 +76,15 @@ const GameRoomsIdPage = () => {
         socket.emit('gameUserReady', { room_id: roomInfo?._id, ready: !ready })
     }
 
+    // on gameStart
     useEffect(() => {
         const handleGameStart = () => {
             const roomInfoClone = { ...roomInfo }
             roomInfoClone.game = true
             dispatch(setRoomInfo(roomInfoClone))
+
+            // startRound
+            socket.emit('gameNextPlayerRound', { room_id: roomInfo?._id })
         }
 
         socket.on('gameStart', (data) => handleGameStart(data))
@@ -88,7 +93,7 @@ const GameRoomsIdPage = () => {
 
     return (
         <>
-            {!roomInfo.game && (
+            {!roomInfo?.game && (
                 <>
                     <div>{roomInfo?.roomId}</div>
                     <hr />
@@ -121,11 +126,7 @@ const GameRoomsIdPage = () => {
                 </>
             )}
 
-            {roomInfo?.game && (
-                <>
-                    <h1>Game Starts!</h1>
-                </>
-            )}
+            {roomInfo?.game && <Game></Game>}
         </>
     )
 }

@@ -21,6 +21,10 @@ const roomSchema = mongoose.Schema({
         type: Boolean,
         required: true,
     },
+    gameCurrentUser: {
+        type: Array,
+        required: true,
+    },
 })
 
 const Room = mongoose.model('Room', roomSchema)

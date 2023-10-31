@@ -191,8 +191,47 @@ const gameUserReady = async (room_id, ready, socket) => {
     }
 }
 
+const gameNextPlayerRound = async (room_id, socket) => {
+    try {
+        const room = await Room.findById({ _id: room_id })
+
+        const activeUsers = []
+        room.users.forEach((user) => {
+            if (user.active) {
+                activeUsers.push(user)
+            }
+        })
+        const activeUsersLength = activeUsers.length
+        console.log('1. Active Users Length: ', activeUsersLength)
+
+        let currentRound
+        if (room.roomRound < activeUsersLength) {
+            currentRound = room.roomRound + 1
+        } else {
+            currentRound = 1
+        }
+        console.log('2. Current Round: ', currentRound)
+
+        const currentUser = activeUsers[currentRound - 1]
+        if (!currentUser) return console.log('err')
+        room.gameCurrentUser = [currentUser]
+        console.log('3. Current User: ', room.gameCurrentUser)
+
+        const roomUpdated = await Room.findByIdAndUpdate(
+            { _id: room_id },
+            { roomRound: currentRound, gameCurrentUser: room.gameCurrentUser },
+            { new: true }
+        )
+
+        socket.nsp.to(room_id).emit('clientCurrentUserRound', roomUpdated)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 module.exports = {
     clientDisconnect,
     roomUserJoin,
     gameUserReady,
+    gameNextPlayerRound,
 }
