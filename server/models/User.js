@@ -9,6 +9,10 @@ const userSchema = mongoose.Schema({
         type: Array,
         required: true,
     },
+    points: {
+        type: Number,
+        required: true,
+    },
 })
 
 const User = mongoose.model('User', userSchema)

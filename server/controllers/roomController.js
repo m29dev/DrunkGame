@@ -20,6 +20,10 @@ const room_create = async (req, res) => {
             users: [],
             game: false,
             gameCurrentUser: [],
+            gameCurrentDice: null,
+            gameCurrentCategory: '',
+            gameCurrentAssignment: [],
+            gameCurrentAnswer: null,
         })
 
         const savedRoom = await room.save()
@@ -44,45 +48,80 @@ const room_read = async (req, res) => {
 
 const room_user_join = async (req, res) => {
     try {
-        const { room_id, user_id } = req.body
+        const { roomId } = req.params
 
-        const roomCurr = await Room.findById({ _id: room_id })
-        if (!roomCurr) return res.status(403).json({ message: 'no room found' })
+        const room = await Room.findOne({ roomId })
+        if (!room) return res.status(403).json({ message: 'no room found' })
 
-        let userExists = false
-        roomCurr.users.forEach((data) => {
-            if (data?.nickname === nickname) {
-                return (userExists = true)
-            }
-        })
-
-        if (!userExists) {
-            roomCurr.gameData = [...roomCurr?.gameData, userGameDataObject]
-            roomCurr.gamePoints = [
-                ...roomCurr?.gamePoints,
-                userGamePointsObject,
-            ]
-
-            await roomCurr.save()
-        }
+        res.status(200).json({ room_id: room._id })
     } catch (err) {
         console.log(err)
     }
 }
 
 const Qna = require('../models/Qna')
+const Question = require('../models/Question')
+const Challenge = require('../models/Challenge')
+const MostLikelyTo = require('../models/MostLikelyTo')
 const add_database = async (req, res) => {
     try {
-        const dataArray = []
+        const dataArray = [
+            {
+                question:
+                    'Kto najprawdopodobniej weźmie udział w reality show?',
+            },
+            {
+                question: 'Kto najprawdopodobniej spóźni się na spotkanie?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej zapomni o urodzinach swojego najlepszego przyjaciela?',
+            },
+            {
+                question: 'Kto najprawdopodobniej zostanie prezydentem?',
+            },
+            {
+                question: 'Kto najprawdopodobniej wygra konkurs talentów?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej wybuchnie śmiechem na nieodpowiednim miejscu?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej będzie podróżować po całym świecie?',
+            },
+            {
+                question: 'Kto najprawdopodobniej zostanie milionerem?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej poderwie kogoś będąc na randce z kimś innym?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej będzie niemiły w stosunku do klientów podczas pracy?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej będzie się spotykać z kimś dla pieniędzy?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej będzie pierwszym, który się ożeni?',
+            },
+            {
+                question:
+                    'Kto najprawdopodobniej będzie mieć sponsora lub sponsorkę?',
+            },
+        ]
 
         dataArray.forEach((item) => {
-            const newQna = new Qna({
-                question: item.tresc,
-                answers: [...item.odp],
-                correctAnswer: item.odp_poprawna,
+            const newMLT = new MostLikelyTo({
+                question: item.question,
             })
 
-            // newQna.save()
+            newMLT.save()
         })
 
         res.json({ message: 'add_database' })

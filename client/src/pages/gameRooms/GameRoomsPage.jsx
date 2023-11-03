@@ -3,7 +3,10 @@ import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './rooms.css'
-import { useRoomCreateMutation } from '../../services/roomService'
+import {
+    useRoomCreateMutation,
+    useRoomUserJoinMutation,
+} from '../../services/roomService'
 
 const GameRoomsPage = () => {
     const { authInfo, userInfo } = useSelector((state) => state.auth)
@@ -15,11 +18,19 @@ const GameRoomsPage = () => {
     })
 
     // join room config
+    const [getRoomId] = useRoomUserJoinMutation()
     const [room, setRoom] = useState('')
-    const handleJoinRoom = (e) => {
-        e.preventDefault()
-        if (room === '') return
-        navigate(`/rooms/${room}`)
+    const handleJoinRoom = async (e) => {
+        try {
+            e.preventDefault()
+            if (room === '') return
+
+            const res = await getRoomId({ roomId: room }).unwrap()
+            navigate(`/rooms/${res?.room_id}`)
+        } catch (err) {
+            console.log(err?.data?.message)
+            window.alert(err?.data?.message)
+        }
     }
 
     // create room config
@@ -28,8 +39,6 @@ const GameRoomsPage = () => {
     const onRoomCreate = async () => {
         try {
             const res = await roomCreate({ roomId: roomName }).unwrap()
-
-            console.log(res)
             navigate(`/rooms/${res?._id}`)
         } catch (err) {
             console.log(err?.data?.message)

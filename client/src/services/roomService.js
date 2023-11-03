@@ -23,26 +23,25 @@ export const authApiSlice = apiSlice.injectEndpoints({
         // Add User to the Room
         roomUserJoin: builder.mutation({
             query: (data) => ({
-                url: `${ROOM_URL}/user/join`,
-                method: 'POST',
-                body: data,
-            }),
-        }),
-
-        saveGameData: builder.mutation({
-            query: (data) => ({
-                url: `${ROOM_URL}/data/save`,
-                method: 'POST',
-                body: data,
-            }),
-        }),
-
-        getGameData: builder.mutation({
-            query: (roomId) => ({
-                url: `${ROOM_URL}/data/get/${roomId}`,
+                url: `${ROOM_URL}/user/join/${data.roomId}`,
                 method: 'GET',
             }),
         }),
+
+        // saveGameData: builder.mutation({
+        //     query: (data) => ({
+        //         url: `${ROOM_URL}/data/save`,
+        //         method: 'POST',
+        //         body: data,
+        //     }),
+        // }),
+
+        // getGameData: builder.mutation({
+        //     query: (roomId) => ({
+        //         url: `${ROOM_URL}/data/get/${roomId}`,
+        //         method: 'GET',
+        //     }),
+        // }),
     }),
 })
 

@@ -1,4 +1,6 @@
 const Room = require('../models/Room')
+const Qna = require('../models/Qna')
+const User = require('../models/User')
 
 const clientDisconnect = async (socket) => {
     try {
@@ -15,9 +17,12 @@ const clientDisconnect = async (socket) => {
                         { new: true }
                     )
 
-                    const roomId = JSON.stringify(room._id).slice(1, -1)
-                    socket.nsp.to(roomId).emit('roomUserToggle', roomUpdate)
-                    console.log('user disconnected: ', socket.userId, roomId)
+                    const room_id = JSON.stringify(room._id).slice(1, -1)
+                    // socket.nsp.to(roomId).emit('roomUserToggle', roomUpdate)
+                    socket.nsp
+                        .to(room_id)
+                        .emit('clientRoomInfoUpdate', roomUpdate)
+                    console.log('user disconnected: ', socket.userId, room_id)
 
                     return
                 }
@@ -70,7 +75,8 @@ const roomUserJoin = async (room_id, user_id, socket) => {
                 //     room,
                 //     message: `${socket.userId} joined the room`,
                 // })
-                socket.nsp.to(room_id).emit('roomUserToggle', roomUpdate)
+                // socket.nsp.to(room_id).emit('roomUserToggle', roomUpdate)
+                socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
 
                 console.log(
                     `${socket.userId} ${socket.id}'s joined Room ${room_id}`
@@ -88,7 +94,8 @@ const roomUserJoin = async (room_id, user_id, socket) => {
                 //     room,
                 //     message: `${socket.userId}'s rejoined the room`,
                 // })
-                socket.nsp.to(room_id).emit('roomUserToggle', roomUpdate)
+                // socket.nsp.to(room_id).emit('roomUserToggle', roomUpdate)
+                socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
 
                 console.log(
                     `${socket.userId} ${socket.id}'s rejoined Room ${room_id}`
@@ -115,7 +122,10 @@ const roomUserJoin = async (room_id, user_id, socket) => {
                     //     room,
                     //     message: `${socket.userId}'s rejoined the room`,
                     // })
-                    socket.nsp.to(room_id).emit('roomUserToggle', roomUpdate)
+                    // socket.nsp.to(room_id).emit('roomUserToggle', roomUpdate)
+                    socket.nsp
+                        .to(room_id)
+                        .emit('clientRoomInfoUpdate', roomUpdate)
 
                     console.log(
                         `${socket.userId} ${socket.id}'s rejoined Room ${room_id}`
@@ -202,7 +212,7 @@ const gameNextPlayerRound = async (room_id, socket) => {
             }
         })
         const activeUsersLength = activeUsers.length
-        console.log('1. Active Users Length: ', activeUsersLength)
+        // console.log('1. Active Users Length: ', activeUsersLength)
 
         let currentRound
         if (room.roomRound < activeUsersLength) {
@@ -210,20 +220,104 @@ const gameNextPlayerRound = async (room_id, socket) => {
         } else {
             currentRound = 1
         }
-        console.log('2. Current Round: ', currentRound)
+        // console.log('2. Current Round: ', currentRound)
 
         const currentUser = activeUsers[currentRound - 1]
         if (!currentUser) return console.log('err')
         room.gameCurrentUser = [currentUser]
-        console.log('3. Current User: ', room.gameCurrentUser)
+        // console.log('3. Current User: ', room.gameCurrentUser)
 
         const roomUpdated = await Room.findByIdAndUpdate(
             { _id: room_id },
-            { roomRound: currentRound, gameCurrentUser: room.gameCurrentUser },
+            {
+                roomRound: currentRound,
+                gameCurrentUser: room.gameCurrentUser,
+                gameCurrentDice: null,
+                gameCurrentAssignment: [],
+                gameCurrentAnswer: null,
+            },
             { new: true }
         )
 
-        socket.nsp.to(room_id).emit('clientCurrentUserRound', roomUpdated)
+        // socket.nsp.to(room_id).emit('clientCurrentUserRound', roomUpdated)
+        socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdated)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const gameRollTheDice = async (room_id, socket) => {
+    try {
+        const room = await Room.findById({ _id: room_id })
+
+        const randomNum = Math.trunc(Math.random() * 6 + 1)
+        if (!randomNum) return console.log('random_num err')
+        room.gameCurrentDice = randomNum
+
+        const roomUpdate = await Room.findByIdAndUpdate(
+            { _id: room_id },
+            { gameCurrentDice: room.gameCurrentDice },
+            { new: true }
+        )
+
+        socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const gameGetAssignment = async (room_id, socket) => {
+    try {
+        const room = await Room.findById({ _id: room_id })
+        const qnaAll = await Qna.find({})
+
+        const randomNum = Math.trunc(Math.random() * (qnaAll.length + 1))
+        const qnaRes = qnaAll[randomNum]
+        if (!qnaRes) return res.status(403).json({ message: 'qna err' })
+
+        room.gameCurrentAssignment.push(qnaRes)
+        const roomUpdate = await Room.findByIdAndUpdate(
+            { _id: room_id },
+            { gameCurrentAssignment: room.gameCurrentAssignment },
+            { new: true }
+        )
+
+        socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const gameAssignmentAnswer = async (room_id, answer, socket) => {
+    try {
+        const room = await Room.findById({ _id: room_id })
+        const user = await User.findById({ _id: socket.user_id })
+
+        room.gameCurrentAnswer = answer
+        const roomUpdate = await Room.findByIdAndUpdate(
+            { _id: room_id },
+            { gameCurrentAnswer: room.gameCurrentAnswer },
+            { new: true }
+        )
+        socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
+
+        // check if currentAnswer is correct
+        if (answer === room?.gameCurrentAssignment?.[0]?.correctAnswer) {
+            console.log('correct')
+            user.points = user.points + room?.gameCurrentDice
+            const userUpdate = await User.findByIdAndUpdate(
+                { _id: socket.user_id },
+                { points: user.points },
+                { new: true }
+            )
+
+            console.log(19, socket.id)
+            socket.to(socket.id).emit('userInfoTest', { userInfoTest: 'test' })
+
+            // socket.to(socket.id).emit('clientUserInfoUpdate', userUpdate)
+        } else {
+            console.log('incorrect')
+        }
     } catch (err) {
         console.log(err)
     }
@@ -234,4 +328,7 @@ module.exports = {
     roomUserJoin,
     gameUserReady,
     gameNextPlayerRound,
+    gameRollTheDice,
+    gameGetAssignment,
+    gameAssignmentAnswer,
 }

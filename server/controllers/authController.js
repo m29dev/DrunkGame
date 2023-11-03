@@ -8,6 +8,7 @@ const user_connect = async (req, res) => {
         const user = new User({
             userId,
             userGameData: [],
+            points: 0,
         })
         const userCreated = await user.save()
 

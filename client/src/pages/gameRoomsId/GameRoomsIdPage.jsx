@@ -25,7 +25,6 @@ const GameRoomsIdPage = () => {
             console.log(err)
         }
     }, [getRoom, params, dispatch])
-    // on init
     useEffect(() => {
         getRoomData()
     }, [getRoomData])
@@ -41,7 +40,6 @@ const GameRoomsIdPage = () => {
             console.log(err)
         }
     }, [getUser, authInfo, dispatch])
-    // on init
     useEffect(() => {
         getUserData()
     }, [getUserData])
@@ -55,19 +53,19 @@ const GameRoomsIdPage = () => {
     }, [socket, params])
 
     // on User Join / User Leave the Room event
-    useEffect(() => {
-        const handleRoomToggle = (roomObject) => {
-            console.log('handle room join')
-            dispatch(setRoomInfo(roomObject))
-        }
+    // useEffect(() => {
+    //     const handleRoomToggle = (roomObject) => {
+    //         console.log('handle room join')
+    //         dispatch(setRoomInfo(roomObject))
+    //     }
 
-        socket.on('roomUserToggle', (roomObject) =>
-            handleRoomToggle(roomObject)
-        )
-        return () => {
-            socket.off('roomUserToggle')
-        }
-    }, [socket, dispatch])
+    //     socket.on('roomUserToggle', (roomObject) =>
+    //         handleRoomToggle(roomObject)
+    //     )
+    //     return () => {
+    //         socket.off('roomUserToggle')
+    //     }
+    // }, [socket, dispatch])
 
     const [ready, setReady] = useState(false)
     const readyToggle = () => {
@@ -90,6 +88,43 @@ const GameRoomsIdPage = () => {
         socket.on('gameStart', (data) => handleGameStart(data))
         return () => socket.off('gameStart')
     }, [socket, dispatch, roomInfo])
+
+    // on ALL roomInfo updates
+    useEffect(() => {
+        const handleRoomInfoUpdate = (data) => {
+            dispatch(setRoomInfo(data))
+        }
+
+        socket.on('clientRoomInfoUpdate', (data) => {
+            handleRoomInfoUpdate(data)
+        })
+        return () => {
+            socket.off('clientRoomInfoUpdate')
+        }
+    }, [socket, dispatch])
+
+    // on ALL userInfo updates
+    useEffect(() => {
+        const handleUserInfoUpdate = (data) => {
+            console.log('update userInfo')
+            console.log(19, data)
+            dispatch(setUserInfo(data))
+        }
+
+        socket.on('clientUserInfoUpdate', (data) => {
+            handleUserInfoUpdate(data)
+        })
+        return () => {
+            socket.off('clientUserInfoUpdate')
+        }
+    }, [socket, dispatch])
+
+    useEffect(() => {
+        socket.on('userInfoTest', (data) => {
+            console.log('USER POINTS UPDATE')
+            console.log(data)
+        })
+    }, [socket, dispatch])
 
     return (
         <>

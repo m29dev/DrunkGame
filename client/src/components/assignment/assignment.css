@@ -1,0 +1,26 @@
+.answer-box {
+    border: 1px solid gray;
+    border-radius: 18px;
+    cursor: pointer;
+    background-color: #303030;
+    /*  */
+}
+
+.answer-box-non-playable {
+    border: 1px solid gray;
+    border-radius: 18px;
+    background-color: #303030;
+    /*  */
+}
+
+.answer-clicked {
+    background-color: silver !important;
+}
+
+.answer-correct {
+    background-color: greenyellow !important;
+}
+
+.answer-incorrect {
+    background-color: red !important;
+}

@@ -14,6 +14,9 @@ const {
     clientDisconnect,
     gameUserReady,
     gameNextPlayerRound,
+    gameRollTheDice,
+    gameGetAssignment,
+    gameAssignmentAnswer,
 } = require('./config/GameConfig')
 
 dotenv.config()
@@ -68,6 +71,21 @@ io.on('connection', async (socket) => {
         socket.on('gameNextPlayerRound', async ({ room_id }) => {
             // advance round
             gameNextPlayerRound(room_id, socket)
+        })
+
+        // on roll the dice
+        socket.on('gameRollTheDice', async ({ room_id }) => {
+            gameRollTheDice(room_id, socket)
+        })
+
+        // on get assignment
+        socket.on('gameGetAssignment', async ({ room_id }) => {
+            gameGetAssignment(room_id, socket)
+        })
+
+        // on assignment answer
+        socket.on('gameAssignmentAnswer', async ({ room_id, answer }) => {
+            gameAssignmentAnswer(room_id, answer, socket)
         })
 
         // on end game
