@@ -8,7 +8,11 @@ body {
     color-scheme: light dark;
     /* color: rgba(255, 255, 255, 0.87); */
     color: #eaecec;
-    background-color: #242424;
-    /* background-color: #000000; */
+    /* background-color: #242424; */
+    /* background-color: rgb(37, 44, 74); */
+
+    background-color: rgb(26, 31, 53);
+    /* background-color: rgb(107, 91, 223); */
+
     font-family: 'Poppins', sans-serif;
 }

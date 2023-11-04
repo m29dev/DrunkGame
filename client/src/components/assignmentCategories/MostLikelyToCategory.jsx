@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 import TextGradient from '../textGradient/TextGradient'
+import './assignmentCategories.css'
 
 const MostLikelyToCategory = () => {
     const { roomInfo, authInfo } = useSelector((state) => state.auth)
@@ -41,51 +42,74 @@ const MostLikelyToCategory = () => {
 
     return (
         <>
-            <TextGradient text={`Most Likely To...`} size={45}></TextGradient>
+            <div className="assignment-category-box">
+                <div className="category-navbar">
+                    <TextGradient
+                        text={`Most Likely To...`}
+                        size={40}
+                    ></TextGradient>
 
-            {!roomInfo?.gameCurrentAnswer && !pickedUser && (
-                <div>
-                    {roomInfo?.gameCurrentAssignment?.[0] && (
-                        <div>
-                            <h4>
-                                {roomInfo?.gameCurrentAssignment?.[0]?.question}
-                            </h4>
-                            {roomInfo?.gameCurrentAssignment?.[1]?.usersToVote?.map(
-                                (item, index) => (
-                                    <Button
-                                        key={index}
-                                        disabled={voted}
-                                        onClick={() => {
-                                            handleUserSelect(item)
-                                        }}
-                                    >
-                                        {item.userId}
-                                    </Button>
-                                )
-                            )}
-                        </div>
-                    )}
+                    <div className="paragraph">
+                        <TextGradient
+                            text={`CATEGORY`}
+                            size={14}
+                        ></TextGradient>
+                    </div>
                 </div>
-            )}
 
-            {/* on currentAnswer */}
-            {roomInfo?.gameCurrentAnswer && pickedUser && (
-                <div>
-                    <h4>
-                        {`Najprawdopodobniej... `}
-                        {pickedUser?.userId}{' '}
-                        {roomInfo?.gameCurrentAssignment?.[0]?.question.slice(
-                            22,
-                            -1
+                {!roomInfo?.gameCurrentAnswer && !pickedUser && (
+                    <div className="category-box">
+                        {roomInfo?.gameCurrentAssignment?.[0] && (
+                            <>
+                                {/* question */}
+                                <h4>
+                                    {
+                                        roomInfo?.gameCurrentAssignment?.[0]
+                                            ?.question
+                                    }
+                                </h4>
+
+                                {/* users to pick */}
+                                <div className="category-answer-pick-box">
+                                    {roomInfo?.gameCurrentAssignment?.[1]?.usersToVote?.map(
+                                        (item, index) => (
+                                            <Button
+                                                key={index}
+                                                className="category-answer-pick-item"
+                                                disabled={voted}
+                                                onClick={() => {
+                                                    handleUserSelect(item)
+                                                }}
+                                            >
+                                                {item.userId}
+                                            </Button>
+                                        )
+                                    )}
+                                </div>
+                            </>
                         )}
-                        .
-                    </h4>
-                    <h4>
-                        Gratulacje {pickedUser?.userId}, w nagrode napij się
-                        kielona.
-                    </h4>
-                </div>
-            )}
+                    </div>
+                )}
+
+                {/* on currentAnswer */}
+                {roomInfo?.gameCurrentAnswer && pickedUser && (
+                    <div className="category-box">
+                        <h4>
+                            {`Najprawdopodobniej... `}
+                            {pickedUser?.userId}{' '}
+                            {roomInfo?.gameCurrentAssignment?.[0]?.question.slice(
+                                22,
+                                -1
+                            )}
+                            .
+                        </h4>
+                        <h4>
+                            Gratulacje {pickedUser?.userId}, w nagrode napij się
+                            kielona.
+                        </h4>
+                    </div>
+                )}
+            </div>
         </>
     )
 }

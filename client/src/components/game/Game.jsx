@@ -30,7 +30,7 @@ const Game = () => {
                 {/* current user round */}
                 {authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
                     <div>
-                        <h4>{authInfo?.userId} its your round!</h4>
+                        {/* <h4>{authInfo?.userId} its your round!</h4> */}
 
                         {/* Roll the Dice */}
                         {!roomInfo?.gameCurrentDice && <DiceRoll></DiceRoll>}
@@ -45,9 +45,9 @@ const Game = () => {
                 {/* other user round */}
                 {authInfo?._id !== roomInfo?.gameCurrentUser?.[0]?._id && (
                     <div>
-                        <h4>
+                        {/* <h4>
                             Its {roomInfo?.gameCurrentUser?.[0]?.userId}s round
-                        </h4>
+                        </h4> */}
 
                         {/* game */}
 

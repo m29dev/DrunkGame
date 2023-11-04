@@ -4,15 +4,18 @@
     max-height: 100vh !important;
     max-width: 100% !important;
     margin: 0px !important;
-    padding: 12px !important;
+    padding: 30px 30px !important;
 }
 
 .btn {
     border-radius: 18px !important;
     background-color: lightblue !important;
-    color: #242424;
+    /* background-color: rgb(141, 150, 190) !important; */
+    /* background-color: rgb(206, 193, 242) !important; */
+    /* color: #242424 !important; */
     border: 0px !important;
     height: 38px;
+    font-weight: 600 !important;
     text-wrap: nowrap;
 }
 
