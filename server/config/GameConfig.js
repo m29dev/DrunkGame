@@ -1,6 +1,9 @@
 const Room = require('../models/Room')
-const Qna = require('../models/Qna')
 const User = require('../models/User')
+const Qna = require('../models/Qna')
+const Question = require('../models/Question')
+const Challenge = require('../models/Challenge')
+const MostLikelyTo = require('../models/MostLikelyTo')
 
 const clientDisconnect = async (socket) => {
     try {
@@ -235,6 +238,7 @@ const gameNextPlayerRound = async (room_id, socket) => {
                 gameCurrentDice: null,
                 gameCurrentAssignment: [],
                 gameCurrentAnswer: null,
+                gameCurrentCategory: null,
             },
             { new: true }
         )
@@ -266,22 +270,80 @@ const gameRollTheDice = async (room_id, socket) => {
     }
 }
 
-const gameGetAssignment = async (room_id, socket) => {
+const gameGetCategoryAssignment = async (room_id, socket) => {
     try {
         const room = await Room.findById({ _id: room_id })
-        const qnaAll = await Qna.find({})
+        let roomUpdate
 
-        const randomNum = Math.trunc(Math.random() * (qnaAll.length + 1))
-        const qnaRes = qnaAll[randomNum]
-        if (!qnaRes) return res.status(403).json({ message: 'qna err' })
+        // randomize category (1. Qna, 2. Challenge, 3. MostLikelyTo)
+        const categoryNum = Math.trunc(Math.random() * 3 + 1)
+        console.log(279, categoryNum)
 
-        room.gameCurrentAssignment.push(qnaRes)
-        const roomUpdate = await Room.findByIdAndUpdate(
-            { _id: room_id },
-            { gameCurrentAssignment: room.gameCurrentAssignment },
-            { new: true }
-        )
+        // Qna Category
+        if (categoryNum === 1) {
+            const qnaAll = await Qna.find({})
+            const randomNum = Math.trunc(Math.random() * qnaAll.length)
+            const qnaRes = qnaAll[randomNum]
+            if (!qnaRes) return console.log('qna err')
 
+            room.gameCurrentAssignment.push(qnaRes)
+            roomUpdate = await Room.findByIdAndUpdate(
+                { _id: room_id },
+                {
+                    gameCurrentCategory: 'qna',
+                    gameCurrentAssignment: room.gameCurrentAssignment,
+                },
+                { new: true }
+            )
+        }
+
+        // Challenge Category
+        if (categoryNum === 2) {
+            const challengeAll = await Challenge.find({})
+            const randomNum = Math.trunc(Math.random() * challengeAll.length)
+            const challengeRes = challengeAll[randomNum]
+            if (!challengeRes) return console.log('challenge err')
+
+            console.log(2, challengeRes)
+            room.gameCurrentAssignment.push(challengeRes)
+            roomUpdate = await Room.findByIdAndUpdate(
+                { _id: room_id },
+                {
+                    gameCurrentCategory: 'challenge',
+                    gameCurrentAssignment: room.gameCurrentAssignment,
+                },
+                { new: true }
+            )
+        }
+
+        // MostLikelyTo Category
+        if (categoryNum === 3) {
+            const mostLikelyToAll = await MostLikelyTo.find({})
+            const randomNum = Math.trunc(Math.random() * mostLikelyToAll.length)
+            const mostLikelyToRes = mostLikelyToAll[randomNum]
+            if (!mostLikelyToRes) return console.log('mostLikelyTo err')
+
+            room.gameCurrentAssignment.push(mostLikelyToRes)
+
+            room.gameCurrentAssignment.push({
+                usersToVote: [...room.users],
+            })
+
+            room.gameCurrentAssignment.push({
+                votes: [], // user_id as a vote
+            })
+
+            roomUpdate = await Room.findByIdAndUpdate(
+                { _id: room_id },
+                {
+                    gameCurrentCategory: 'mostLikelyTo',
+                    gameCurrentAssignment: room.gameCurrentAssignment,
+                },
+                { new: true }
+            )
+        }
+
+        if (!roomUpdate) return console.log('roomUpdate err')
         socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
     } catch (err) {
         console.log(err)
@@ -293,31 +355,109 @@ const gameAssignmentAnswer = async (room_id, answer, socket) => {
         const room = await Room.findById({ _id: room_id })
         const user = await User.findById({ _id: socket.user_id })
 
-        room.gameCurrentAnswer = answer
-        const roomUpdate = await Room.findByIdAndUpdate(
-            { _id: room_id },
-            { gameCurrentAnswer: room.gameCurrentAnswer },
-            { new: true }
-        )
-        socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
+        const category = room.gameCurrentCategory
 
-        // check if currentAnswer is correct
-        if (answer === room?.gameCurrentAssignment?.[0]?.correctAnswer) {
-            console.log('correct')
-            user.points = user.points + room?.gameCurrentDice
-            const userUpdate = await User.findByIdAndUpdate(
-                { _id: socket.user_id },
-                { points: user.points },
+        if (category === 'qna') {
+            room.gameCurrentAnswer = answer
+            const roomUpdate = await Room.findByIdAndUpdate(
+                { _id: room_id },
+                { gameCurrentAnswer: room.gameCurrentAnswer },
+                { new: true }
+            )
+            socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
+        }
+
+        if (category === 'challenge') {
+            room.gameCurrentAnswer = answer
+            const roomUpdate = await Room.findByIdAndUpdate(
+                { _id: room_id },
+                { gameCurrentAnswer: room.gameCurrentAnswer },
+                { new: true }
+            )
+            socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
+        }
+
+        if (category === 'mostLikelyTo') {
+            const userSelected = answer
+            const voter = socket.user_id
+
+            const voteObject = {
+                userSelected,
+                voter,
+            }
+
+            if (!userSelected || !voter || !voteObject)
+                return console.log('answer mostLikelyTo err')
+
+            room.gameCurrentAssignment[2].votes.push(voteObject)
+
+            if (
+                room.gameCurrentAssignment[2].votes.length === room.users.length
+            ) {
+                console.log('All votes sent. Winner is...')
+
+                // calculate  winner
+                const usersVotesArr = []
+
+                room.gameCurrentAssignment[1].usersToVote.forEach((user) => {
+                    // for EACH USER to vote
+                    const userObject = {
+                        user_id: user._id,
+                        userId: user.userId,
+                        userVotes: 0,
+                    }
+
+                    room.gameCurrentAssignment[2].votes.forEach((vote) => {
+                        if (vote.userSelected === user._id) {
+                            userObject.userVotes += 1
+                        }
+                    })
+
+                    usersVotesArr.push(userObject)
+                })
+
+                let biggestVotesNumber = 0
+                let winnerUserId
+                usersVotesArr.forEach((user) => {
+                    if (user.userVotes > biggestVotesNumber) {
+                        biggestVotesNumber = user.userVotes
+                        winnerUserId = user.user_id
+                    }
+                })
+
+                console.log(winnerUserId)
+                room.gameCurrentAnswer = winnerUserId
+            }
+
+            const roomUpdate = await Room.findByIdAndUpdate(
+                { _id: room_id },
+                {
+                    gameCurrentAssignment: room.gameCurrentAssignment,
+                    gameCurrentAnswer: room.gameCurrentAnswer,
+                },
                 { new: true }
             )
 
-            console.log(19, socket.id)
-            socket.to(socket.id).emit('userInfoTest', { userInfoTest: 'test' })
-
-            // socket.to(socket.id).emit('clientUserInfoUpdate', userUpdate)
-        } else {
-            console.log('incorrect')
+            socket.nsp.to(room_id).emit('clientRoomInfoUpdate', roomUpdate)
         }
+
+        // check if currentAnswer is correct
+        // if (answer === room?.gameCurrentAssignment?.[0]?.correctAnswer) {
+        //     console.log('correct')
+        //     user.points = user.points + room?.gameCurrentDice
+        //     const userUpdate = await User.findByIdAndUpdate(
+        //         { _id: socket.user_id },
+        //         { points: user.points },
+        //         { new: true }
+        //     )
+
+        //     console.log(19, socket.id)
+        //     socket.to(socket.id).emit('userInfoTest', { userInfoTest: 'test' })
+
+        //     // socket.to(socket.id).emit('clientUserInfoUpdate', userUpdate)
+        // } else {
+        //     console.log('incorrect')
+        // }
     } catch (err) {
         console.log(err)
     }
@@ -329,6 +469,6 @@ module.exports = {
     gameUserReady,
     gameNextPlayerRound,
     gameRollTheDice,
-    gameGetAssignment,
+    gameGetCategoryAssignment,
     gameAssignmentAnswer,
 }

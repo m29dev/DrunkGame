@@ -17,6 +17,7 @@ const {
     gameRollTheDice,
     gameGetAssignment,
     gameAssignmentAnswer,
+    gameGetCategoryAssignment,
 } = require('./config/GameConfig')
 
 dotenv.config()
@@ -79,8 +80,8 @@ io.on('connection', async (socket) => {
         })
 
         // on get assignment
-        socket.on('gameGetAssignment', async ({ room_id }) => {
-            gameGetAssignment(room_id, socket)
+        socket.on('gameGetCategoryAssignment', async ({ room_id }) => {
+            gameGetCategoryAssignment(room_id, socket)
         })
 
         // on assignment answer

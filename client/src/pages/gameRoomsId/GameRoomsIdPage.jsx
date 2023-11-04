@@ -13,7 +13,13 @@ const GameRoomsIdPage = () => {
     const params = useParams()
     const dispatch = useDispatch()
 
-    // Fetch Room config
+    const [ready, setReady] = useState(false)
+    const readyToggle = () => {
+        setReady(!ready)
+        socket.emit('gameUserReady', { room_id: roomInfo?._id, ready: !ready })
+    }
+
+    // Fetch Room on init
     const [getRoom] = useRoomReadMutation()
     const getRoomData = useCallback(async () => {
         try {
@@ -29,7 +35,7 @@ const GameRoomsIdPage = () => {
         getRoomData()
     }, [getRoomData])
 
-    // Fetch User config
+    // Fetch User on init
     const [getUser] = useUserReadMutation()
     const getUserData = useCallback(async () => {
         try {
@@ -44,7 +50,7 @@ const GameRoomsIdPage = () => {
         getUserData()
     }, [getUserData])
 
-    // Socket config
+    // Socket join room on init
     useEffect(() => {
         const _id = params.id
         socket.emit('roomJoin', {
@@ -52,29 +58,7 @@ const GameRoomsIdPage = () => {
         })
     }, [socket, params])
 
-    // on User Join / User Leave the Room event
-    // useEffect(() => {
-    //     const handleRoomToggle = (roomObject) => {
-    //         console.log('handle room join')
-    //         dispatch(setRoomInfo(roomObject))
-    //     }
-
-    //     socket.on('roomUserToggle', (roomObject) =>
-    //         handleRoomToggle(roomObject)
-    //     )
-    //     return () => {
-    //         socket.off('roomUserToggle')
-    //     }
-    // }, [socket, dispatch])
-
-    const [ready, setReady] = useState(false)
-    const readyToggle = () => {
-        setReady(!ready)
-
-        socket.emit('gameUserReady', { room_id: roomInfo?._id, ready: !ready })
-    }
-
-    // on gameStart
+    // Socket on gameStart event
     useEffect(() => {
         const handleGameStart = () => {
             const roomInfoClone = { ...roomInfo }
@@ -89,7 +73,7 @@ const GameRoomsIdPage = () => {
         return () => socket.off('gameStart')
     }, [socket, dispatch, roomInfo])
 
-    // on ALL roomInfo updates
+    // Socket on ALL roomInfo updates event
     useEffect(() => {
         const handleRoomInfoUpdate = (data) => {
             dispatch(setRoomInfo(data))
@@ -103,11 +87,10 @@ const GameRoomsIdPage = () => {
         }
     }, [socket, dispatch])
 
-    // on ALL userInfo updates
+    // Socket on ALL userInfo updates event
     useEffect(() => {
         const handleUserInfoUpdate = (data) => {
             console.log('update userInfo')
-            console.log(19, data)
             dispatch(setUserInfo(data))
         }
 
@@ -117,13 +100,6 @@ const GameRoomsIdPage = () => {
         return () => {
             socket.off('clientUserInfoUpdate')
         }
-    }, [socket, dispatch])
-
-    useEffect(() => {
-        socket.on('userInfoTest', (data) => {
-            console.log('USER POINTS UPDATE')
-            console.log(data)
-        })
     }, [socket, dispatch])
 
     return (

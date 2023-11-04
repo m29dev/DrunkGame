@@ -1,13 +1,18 @@
 import './cardShine.css'
 
-const CardShine = () => {
+// eslint-disable-next-line react/prop-types
+const CardShine = ({ data }) => {
     return (
         <>
             <div className="contain">
                 <div className="card">
                     <div className="shine"></div>
-                    {/* text */}
-                    Karta do gry
+                    {/* Category */}
+                    {/* <TextGradient text={category} size={45}></TextGradient> */}
+                    {/* Assignment text */}
+                    {/* {text} */}
+
+                    <>{data}</>
                 </div>
             </div>
         </>

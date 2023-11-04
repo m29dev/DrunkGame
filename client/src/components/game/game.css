@@ -1,0 +1,27 @@
+.game-navbar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-box {
+    width: 100%;
+    height: calc(100% - 50px - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-controls {
+    width: 100%;
+    height: 50px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    /*  */
+}
