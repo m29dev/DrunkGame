@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux'
-import TextGradient from '../textGradient/TextGradient'
 import './assignmentCategories.css'
 
 const ChallengeCategory = () => {
@@ -8,7 +7,7 @@ const ChallengeCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                <div className="category-navbar">
+                {/* <div className="category-navbar">
                     <TextGradient text={`Challenge`} size={40}></TextGradient>
                     <div className="paragraph">
                         <TextGradient
@@ -16,7 +15,7 @@ const ChallengeCategory = () => {
                             size={14}
                         ></TextGradient>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="category-box">
                     {roomInfo?.gameCurrentAssignment?.[0] &&

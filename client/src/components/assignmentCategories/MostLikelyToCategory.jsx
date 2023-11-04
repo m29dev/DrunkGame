@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
-import TextGradient from '../textGradient/TextGradient'
 import './assignmentCategories.css'
 
 const MostLikelyToCategory = () => {
@@ -43,7 +42,7 @@ const MostLikelyToCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                <div className="category-navbar">
+                {/* <div className="category-navbar">
                     <TextGradient
                         text={`Most Likely To...`}
                         size={40}
@@ -55,7 +54,7 @@ const MostLikelyToCategory = () => {
                             size={14}
                         ></TextGradient>
                     </div>
-                </div>
+                </div> */}
 
                 {!roomInfo?.gameCurrentAnswer && !pickedUser && (
                     <div className="category-box">

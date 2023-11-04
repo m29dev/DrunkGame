@@ -1,7 +1,6 @@
 import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
-import TextGradient from '../textGradient/TextGradient'
 import './assignmentCategories.css'
 
 const QnaCategory = () => {
@@ -26,10 +25,10 @@ const QnaCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                <div className="category-navbar">
+                {/* <div className="category-navbar">
                     <TextGradient text={`Quizz`} size={45}></TextGradient>
                     <TextGradient text={`CATEGORY`} size={14}></TextGradient>
-                </div>
+                </div> */}
 
                 {roomInfo?.gameCurrentAssignment?.[0] &&
                     authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
