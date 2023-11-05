@@ -16,7 +16,6 @@ const NavbarGame = () => {
 
     return (
         <>
-            {/* navbar if game = true */}
             {roomInfo?.game && (
                 <div className="navbar">
                     <div className="game-navbar">
@@ -53,19 +52,6 @@ const NavbarGame = () => {
                             </div>
                         </div>
                     )}
-
-                    {/* Get random category assignment */}
-                    {!roomInfo?.gameCurrentAssignment?.[0] &&
-                        authInfo?._id ===
-                            roomInfo?.gameCurrentUser?.[0]?._id && (
-                            <Button onClick={getRandomCategoryAssignment}>
-                                Wylosuj Kategorie
-                            </Button>
-                        )}
-
-                    {/* Roll the Dice */}
-                    {!roomInfo?.gameCurrentCategory &&
-                        !roomInfo?.gameCurrentDice && <DiceRoll></DiceRoll>}
                 </div>
             )}
         </>

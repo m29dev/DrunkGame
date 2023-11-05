@@ -51,13 +51,6 @@ const Game = () => {
                 )}
             </div>
 
-            {/* <div className="game-controls">
-                {authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
-                    <Button variant="dark" onClick={handleNextPlayerRound}>
-                        Next Player
-                    </Button>
-                )}
-            </div> */}
             <ControlPanelGame></ControlPanelGame>
         </>
     )

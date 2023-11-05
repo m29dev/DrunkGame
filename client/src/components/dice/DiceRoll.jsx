@@ -21,7 +21,11 @@ const DiceRoll = () => {
     return (
         <>
             {!roomInfo?.gameCurrentDice && (
-                <Button variant="dark" onClick={rollTheDice}>
+                <Button
+                    variant="dark"
+                    className="btn-control-panel"
+                    onClick={rollTheDice}
+                >
                     Roll the Dice
                 </Button>
             )}

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setRoomInfo, setUserInfo } from '../../redux/authSlice'
 import './roomId.css'
 import Game from '../../components/game/Game'
+import TextGradient from '../../components/textGradient/TextGradient'
 
 const GameRoomsIdPage = () => {
     const { roomInfo, authInfo } = useSelector((state) => state.auth)
@@ -105,11 +106,46 @@ const GameRoomsIdPage = () => {
     return (
         <>
             {!roomInfo?.game && (
-                <>
-                    <div>{roomInfo?.roomId}</div>
-                    <hr />
+                <div className="box-home">
+                    {/* navbar */}
+                    <div className="navbar" style={{ height: '150px' }}>
+                        <div
+                            className="game-navbar"
+                            style={{ justifyContent: 'center' }}
+                        >
+                            <TextGradient
+                                text={`Booze Game`}
+                                size={50}
+                            ></TextGradient>
+                        </div>
 
-                    <div>
+                        {authInfo && (
+                            <h1 style={{ marginTop: '30px' }}>
+                                {authInfo?.userId}
+                            </h1>
+                        )}
+                    </div>
+
+                    {/* users in the room */}
+                    <div className="box-main">
+                        <h4>Users: </h4>
+                        <br />
+                        {roomInfo?.users?.map(
+                            (user, index) =>
+                                user?.active && (
+                                    <h5 key={index}>{user?.userId}</h5>
+                                )
+                        )}
+                    </div>
+
+                    {/* control panel */}
+                    <div
+                        className="control-panel"
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
                         <div
                             className="btn-ready-toggle"
                             style={
@@ -122,19 +158,7 @@ const GameRoomsIdPage = () => {
                             {ready ? 'Ready' : 'Not Ready'}
                         </div>
                     </div>
-                    <hr />
-
-                    <div>
-                        <h4>Users: </h4>
-                        <br />
-                        {roomInfo?.users?.map(
-                            (user, index) =>
-                                user?.active && (
-                                    <h5 key={index}>{user?.userId}</h5>
-                                )
-                        )}
-                    </div>
-                </>
+                </div>
             )}
 
             {roomInfo?.game && <Game></Game>}

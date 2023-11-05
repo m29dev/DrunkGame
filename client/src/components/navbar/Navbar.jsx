@@ -1,59 +1,41 @@
-// import { useSelector } from 'react-redux'
-// import DiceDisplay from '../dice/DiceDisplay'
-// import TextGradient from '../textGradient/TextGradient'
-// import './navbar.css'
-// import DiceRoll from '../dice/diceRoll'
+import { useSelector } from 'react-redux'
+import './navbar.css'
+import TextGradient from '../textGradient/TextGradient'
+import Auth from '../auth/Auth'
 
-// const Navbar = () => {
-//     const { authInfo, roomInfo } = useSelector((state) => state.auth)
+const Navbar = () => {
+    const { roomInfo, authInfo } = useSelector((state) => state.auth)
 
-//     return (
-//         <>
-//             {/* navbar if game = true */}
-//             {roomInfo?.game && (
-//                 <div className="navbar">
-//                     <div className="game-navbar">
-//                         <h1>{authInfo?.userId}</h1>
+    return (
+        <>
+            {/* navbar if game = true */}
+            {!roomInfo?.game && (
+                <div className="navbar" style={{ height: '150px' }}>
+                    <div
+                        className="game-navbar"
+                        style={{ justifyContent: 'center' }}
+                    >
+                        <TextGradient
+                            text={`Booze Game`}
+                            size={50}
+                        ></TextGradient>
+                    </div>
 
-//                         {/* Display rolled dice */}
-//                         {roomInfo?.gameCurrentDice && (
-//                             <DiceDisplay></DiceDisplay>
-//                         )}
-//                     </div>
+                    {!authInfo && (
+                        <div style={{ marginTop: '30px' }}>
+                            <Auth></Auth>
+                        </div>
+                    )}
 
-//                     {roomInfo?.gameCurrentCategory && (
-//                         <div className="category-navbar">
-//                             <TextGradient
-//                                 text={
-//                                     roomInfo?.gameCurrentCategory ===
-//                                     'challenge'
-//                                         ? 'Challenge'
-//                                         : roomInfo?.gameCurrentCategory ===
-//                                           'qna'
-//                                         ? 'Quizz'
-//                                         : roomInfo?.gameCurrentCategory ===
-//                                           'mostLikelyTo'
-//                                         ? 'Most Likely To...'
-//                                         : ''
-//                                 }
-//                                 size={40}
-//                             ></TextGradient>
-//                             <div className="paragraph">
-//                                 <TextGradient
-//                                     text={`CATEGORY`}
-//                                     size={14}
-//                                 ></TextGradient>
-//                             </div>
-//                         </div>
-//                     )}
+                    {authInfo && (
+                        <div style={{ marginTop: '30px' }}>
+                            {authInfo?.userId}
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
+    )
+}
 
-//                     {/* Roll the Dice */}
-//                     {!roomInfo?.gameCurrentCategory &&
-//                         !roomInfo?.gameCurrentDice && <DiceRoll></DiceRoll>}
-//                 </div>
-//             )}
-//         </>
-//     )
-// }
-
-// export default Navbar
+export default Navbar
