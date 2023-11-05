@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setRoomInfo } from '../../redux/authSlice'
 import { useOutletContext } from 'react-router-dom'
+import { FaArrowAltCircleRight } from 'react-icons/fa'
 
 const DiceRoll = () => {
     const { roomInfo } = useSelector((state) => state.auth)
@@ -26,7 +27,8 @@ const DiceRoll = () => {
                     className="btn-control-panel"
                     onClick={rollTheDice}
                 >
-                    Roll the Dice
+                    Rzuć Kostką
+                    <FaArrowAltCircleRight className="btn-arrow"></FaArrowAltCircleRight>
                 </Button>
             )}
         </>

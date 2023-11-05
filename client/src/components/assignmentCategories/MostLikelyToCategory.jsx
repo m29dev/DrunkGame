@@ -42,20 +42,6 @@ const MostLikelyToCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                {/* <div className="category-navbar">
-                    <TextGradient
-                        text={`Most Likely To...`}
-                        size={40}
-                    ></TextGradient>
-
-                    <div className="paragraph">
-                        <TextGradient
-                            text={`CATEGORY`}
-                            size={14}
-                        ></TextGradient>
-                    </div>
-                </div> */}
-
                 {!roomInfo?.gameCurrentAnswer && !pickedUser && (
                     <div className="category-box">
                         {roomInfo?.gameCurrentAssignment?.[0] && (
@@ -94,17 +80,18 @@ const MostLikelyToCategory = () => {
                 {roomInfo?.gameCurrentAnswer && pickedUser && (
                     <div className="category-box">
                         <h4>
-                            {`Najprawdopodobniej... `}
+                            {`Rabini przemówili...`}
+                            <br />
                             {pickedUser?.userId}{' '}
                             {roomInfo?.gameCurrentAssignment?.[0]?.question.slice(
-                                22,
+                                4,
                                 -1
                             )}
                             .
                         </h4>
                         <h4>
-                            Gratulacje {pickedUser?.userId}, w nagrode napij się
-                            kielona.
+                            Fantastycznie {pickedUser?.userId}, w nagrode napij
+                            się kielona.
                         </h4>
                     </div>
                 )}

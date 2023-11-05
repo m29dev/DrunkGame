@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 // import './controlPanel.css'
 import DiceRoll from '../dice/diceRoll'
+import { FaArrowAltCircleRight } from 'react-icons/fa'
 
 const ControlPanelGame = () => {
     const { authInfo, roomInfo } = useSelector((state) => state.auth)
@@ -49,13 +50,21 @@ const ControlPanelGame = () => {
                                             }
                                         >
                                             Wylosuj Kategorie
+                                            <FaArrowAltCircleRight className="btn-arrow"></FaArrowAltCircleRight>
                                         </Button>
                                     )}
 
                                 {roomInfo?.gameCurrentDice &&
                                     roomInfo?.gameCurrentCategory &&
-                                    !roomInfo?.gameCurrentAnswer && (
-                                        <p style={{ margin: '0px' }}>
+                                    !roomInfo?.gameCurrentAnswer &&
+                                    roomInfo?.gameCurrentCategory !==
+                                        'challenge' && (
+                                        <p
+                                            style={{
+                                                margin: '0px',
+                                                fontWeight: '600',
+                                            }}
+                                        >
                                             Wybierz odpowiedź...
                                         </p>
                                     )}
@@ -63,13 +72,16 @@ const ControlPanelGame = () => {
                                 {/* Display Next Player btn after round is played */}
                                 {roomInfo?.gameCurrentDice &&
                                     roomInfo?.gameCurrentCategory &&
-                                    roomInfo?.gameCurrentAnswer && (
+                                    (roomInfo?.gameCurrentAnswer ||
+                                        roomInfo?.gameCurrentCategory ===
+                                            'challenge') && (
                                         <Button
                                             variant="dark"
                                             className="btn-control-panel"
                                             onClick={handleNextPlayerRound}
                                         >
-                                            Next Player
+                                            Następna Runda
+                                            <FaArrowAltCircleRight className="btn-arrow"></FaArrowAltCircleRight>
                                         </Button>
                                     )}
                             </>
