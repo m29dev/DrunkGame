@@ -25,10 +25,11 @@ const QnaCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                {/* <div className="category-navbar">
-                    <TextGradient text={`Quizz`} size={45}></TextGradient>
-                    <TextGradient text={`CATEGORY`} size={14}></TextGradient>
-                </div> */}
+                {roomInfo?.gameCurrentUser?.[0]?._id !== authInfo?._id && (
+                    <div>
+                        <h4>{`${roomInfo?.gameCurrentUser?.[0]?.userId}'s Quizz:`}</h4>
+                    </div>
+                )}
 
                 {roomInfo?.gameCurrentAssignment?.[0] &&
                     authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
@@ -76,30 +77,57 @@ const QnaCategory = () => {
                                                         ? 'category-answer-pick-item answer-incorrect'
                                                         : 'category-answer-pick-item'
                                                 }
+                                            >
+                                                {abcd[index]}
+                                                {`. `}
+                                                {item}
+                                            </Button>
+                                        )
+                                    )}
+                                </div>
+                            </>
+                        </div>
+                    )}
 
-                                                // style={
-                                                //     roomInfo?.gameCurrentAnswer &&
-                                                //     abcd[index] ===
-                                                //         roomInfo
-                                                //             ?.gameCurrentAssignment?.[0]
-                                                //             ?.correctAnswer
-                                                //         ? {
-                                                //               backgroundColor:
-                                                //                   'lighgreen !important',
-                                                //           }
-                                                //         : roomInfo?.gameCurrentAnswer &&
-                                                //           abcd[index] ===
-                                                //               roomInfo?.gameCurrentAnswer &&
-                                                //           roomInfo
-                                                //               ?.gameCurrentAssignment?.[0]
-                                                //               ?.correctAnswer !==
-                                                //               roomInfo?.gameCurrentAnswer
-                                                //         ? {
-                                                //               backgroundColor:
-                                                //                   'red !important',
-                                                //           }
-                                                //         : {}
-                                                // }
+                {/* non current user */}
+                {roomInfo?.gameCurrentAssignment?.[0] &&
+                    authInfo?._id !== roomInfo?.gameCurrentUser?.[0]?._id && (
+                        <div className="category-box">
+                            <>
+                                {/* question */}
+                                <h4>
+                                    {
+                                        roomInfo?.gameCurrentAssignment?.[0]
+                                            ?.question
+                                    }
+                                </h4>
+
+                                {/* answers */}
+                                <div className="category-answer-pick-box">
+                                    {roomInfo?.gameCurrentAssignment?.[0]?.answers?.map(
+                                        (item, index) => (
+                                            <Button
+                                                key={index}
+                                                disabled={true}
+                                                className={
+                                                    !roomInfo?.gameCurrentAnswer
+                                                        ? 'category-answer-pick-item'
+                                                        : roomInfo?.gameCurrentAnswer &&
+                                                          abcd[index] ===
+                                                              roomInfo
+                                                                  ?.gameCurrentAssignment?.[0]
+                                                                  ?.correctAnswer
+                                                        ? 'category-answer-pick-item answer-correct'
+                                                        : roomInfo?.gameCurrentAnswer &&
+                                                          abcd[index] ===
+                                                              roomInfo?.gameCurrentAnswer &&
+                                                          roomInfo
+                                                              ?.gameCurrentAssignment?.[0]
+                                                              ?.correctAnswer !==
+                                                              roomInfo?.gameCurrentAnswer
+                                                        ? 'category-answer-pick-item answer-incorrect'
+                                                        : 'category-answer-pick-item'
+                                                }
                                             >
                                                 {abcd[index]}
                                                 {`. `}

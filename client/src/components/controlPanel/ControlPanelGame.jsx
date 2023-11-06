@@ -49,7 +49,7 @@ const ControlPanelGame = () => {
                                                 getRandomCategoryAssignment
                                             }
                                         >
-                                            Wylosuj Kategorie
+                                            Draw a Category Card
                                             <FaArrowAltCircleRight className="btn-arrow"></FaArrowAltCircleRight>
                                         </Button>
                                     )}
@@ -65,7 +65,7 @@ const ControlPanelGame = () => {
                                                 fontWeight: '600',
                                             }}
                                         >
-                                            Wybierz odpowiedź...
+                                            Choose an Answer
                                         </p>
                                     )}
 
@@ -80,7 +80,7 @@ const ControlPanelGame = () => {
                                             className="btn-control-panel"
                                             onClick={handleNextPlayerRound}
                                         >
-                                            Następna Runda
+                                            Next Round
                                             <FaArrowAltCircleRight className="btn-arrow"></FaArrowAltCircleRight>
                                         </Button>
                                     )}
@@ -91,7 +91,13 @@ const ControlPanelGame = () => {
                     {roomInfo?.game &&
                         authInfo?._id !==
                             roomInfo?.gameCurrentUser?.[0]?._id && (
-                            <p>{`${roomInfo?.gameCurrentUser?.[0]?.userId}'s round.`}</p>
+                            <h4
+                                style={{
+                                    margin: '0px',
+                                    fontSize: '16px',
+                                    fontWeight: '600',
+                                }}
+                            >{`${roomInfo?.gameCurrentUser?.[0]?.userId}'s round`}</h4>
                         )}
 
                     {/* if !game display Ready Btn */}

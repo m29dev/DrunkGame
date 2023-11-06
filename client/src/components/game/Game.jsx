@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux'
 import AssignmentDisplay from '../assignment/AssignmentDisplay'
-import AssignmentDisplayNonPlayable from '../assignment/AssignmentDisplayNonPlayable'
 import './game.css'
 import NavbarGame from '../navbar/NavbarGame'
 import ControlPanelGame from '../controlPanel/ControlPanelGame'
+// import ThreeDice from '../../three/threeDice'
+import ThreeFiberDice from '../../three/ThreeFiberDice'
 
 const Game = () => {
     const { authInfo, roomInfo } = useSelector((state) => state.auth)
@@ -18,37 +19,33 @@ const Game = () => {
                 {/* current user round */}
                 {authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
                     <div>
-                        {/* <h4>{authInfo?.userId} its your round!</h4> */}
-
-                        {/* Roll the Dice */}
-                        {/* {!roomInfo?.gameCurrentDice && <DiceRoll></DiceRoll>} */}
-
-                        {/* Display User's assignment */}
-                        {roomInfo?.gameCurrentDice && (
-                            <AssignmentDisplay></AssignmentDisplay>
-                        )}
+                        <AssignmentDisplay></AssignmentDisplay>
                     </div>
                 )}
 
                 {/* other user round */}
                 {authInfo?._id !== roomInfo?.gameCurrentUser?.[0]?._id && (
-                    <div>
-                        {/* <h4>
-                            Its {roomInfo?.gameCurrentUser?.[0]?.userId}s round
-                        </h4> */}
-
-                        {/* game */}
-
-                        {/* Display current users's assignment */}
-                        {roomInfo?.gameCurrentCategory === 'mostLikelyTo' && (
-                            <AssignmentDisplay></AssignmentDisplay>
+                    <div style={{ justifySelf: 'center' }}>
+                        {!roomInfo?.gameCurrentDice && (
+                            <h4>
+                                {roomInfo?.gameCurrentUser?.[0]?.userId} rzuca
+                                kostką...
+                            </h4>
                         )}
 
-                        {roomInfo?.gameCurrentCategory !== 'mostLikelyTo' && (
-                            <AssignmentDisplayNonPlayable></AssignmentDisplayNonPlayable>
-                        )}
+                        {roomInfo?.gameCurrentDice &&
+                            !roomInfo?.gameCurrentAssignment?.[0] && (
+                                <h4>
+                                    {roomInfo?.gameCurrentUser?.[0]?.userId}{' '}
+                                    losuje kategorie...
+                                </h4>
+                            )}
+                        <AssignmentDisplay></AssignmentDisplay>
                     </div>
                 )}
+
+                {/* TEST */}
+                <ThreeFiberDice></ThreeFiberDice>
             </div>
 
             <ControlPanelGame></ControlPanelGame>

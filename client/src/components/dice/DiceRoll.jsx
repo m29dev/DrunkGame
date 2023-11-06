@@ -27,7 +27,7 @@ const DiceRoll = () => {
                     className="btn-control-panel"
                     onClick={rollTheDice}
                 >
-                    Rzuć Kostką
+                    Roll the Dice
                     <FaArrowAltCircleRight className="btn-arrow"></FaArrowAltCircleRight>
                 </Button>
             )}

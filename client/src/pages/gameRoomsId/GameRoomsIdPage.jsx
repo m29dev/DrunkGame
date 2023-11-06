@@ -139,7 +139,7 @@ const GameRoomsIdPage = () => {
                     </div>
 
                     {/* control panel */}
-                    <div
+                    {/* <div
                         className="control-panel"
                         style={{
                             justifyContent: 'center',
@@ -157,6 +157,18 @@ const GameRoomsIdPage = () => {
                         >
                             {ready ? 'Ready' : 'Not Ready'}
                         </div>
+                    </div> */}
+
+                    <div
+                        className="btn-ready-toggle"
+                        style={
+                            ready
+                                ? { backgroundColor: 'lightgreen' }
+                                : { backgroundColor: 'gray' }
+                        }
+                        onClick={readyToggle}
+                    >
+                        {ready ? 'Ready' : 'Not Ready'}
                     </div>
                 </div>
             )}
