@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 // import './controlPanel.css'
-import DiceRoll from '../dice/diceRoll'
+import DiceRoll from '../dice/DiceRoll'
 import { FaArrowAltCircleRight } from 'react-icons/fa'
 
 const ControlPanelGame = () => {
