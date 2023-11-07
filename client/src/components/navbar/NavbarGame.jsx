@@ -2,17 +2,15 @@ import { useSelector } from 'react-redux'
 import DiceDisplay from '../dice/DiceDisplay'
 import TextGradient from '../textGradient/TextGradient'
 import './navbar.css'
-import DiceRoll from '../dice/diceRoll'
-import { Button } from 'react-bootstrap'
-import { useOutletContext } from 'react-router-dom'
+// import { useOutletContext } from 'react-router-dom'
 
 const NavbarGame = () => {
     const { authInfo, roomInfo } = useSelector((state) => state.auth)
-    const [socket] = useOutletContext()
+    // const [socket] = useOutletContext()
 
-    const getRandomCategoryAssignment = () => {
-        socket.emit('gameGetCategoryAssignment', { room_id: roomInfo?._id })
-    }
+    // const getRandomCategoryAssignment = () => {
+    //     socket.emit('gameGetCategoryAssignment', { room_id: roomInfo?._id })
+    // }
 
     return (
         <>

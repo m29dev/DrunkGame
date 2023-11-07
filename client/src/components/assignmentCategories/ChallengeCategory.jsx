@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux'
 import './assignmentCategories.css'
 import CardShine from '../cardShine/CardShine'
 
 const ChallengeCategory = () => {
-    const { roomInfo, authInfo } = useSelector((state) => state.auth)
+    // const { roomInfo, authInfo } = useSelector((state) => state.auth)
 
     return (
         <>
