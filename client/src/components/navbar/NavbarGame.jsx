@@ -40,12 +40,12 @@ const NavbarGame = () => {
                                         ? 'Most Likely To...'
                                         : ''
                                 }
-                                size={40}
+                                size={`10vw`}
                             ></TextGradient>
                             <div className="paragraph">
                                 <TextGradient
                                     text={`CATEGORY`}
-                                    size={14}
+                                    size={`5vw`}
                                 ></TextGradient>
                             </div>
                         </div>

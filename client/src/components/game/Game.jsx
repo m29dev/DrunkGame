@@ -25,25 +25,7 @@ const Game = () => {
 
                 {/* other user round */}
                 {authInfo?._id !== roomInfo?.gameCurrentUser?.[0]?._id && (
-                    <div style={{ justifySelf: 'center', alignSelf: 'center' }}>
-                        {/* {!roomInfo?.gameCurrentDice && (
-                            <>
-                                <h4>
-                                    {roomInfo?.gameCurrentUser?.[0]?.userId}{' '}
-                                    rzuca kostką...
-                                </h4>
-                            </>
-                        )}
-
-                        {roomInfo?.gameCurrentDice &&
-                            !roomInfo?.gameCurrentAssignment?.[0] && (
-                                <h4>
-                                    {roomInfo?.gameCurrentUser?.[0]?.userId}{' '}
-                                    losuje kategorie...
-                                </h4>
-                            )} */}
-                        <AssignmentDisplay></AssignmentDisplay>
-                    </div>
+                    <AssignmentDisplay></AssignmentDisplay>
                 )}
 
                 {/* TEST */}

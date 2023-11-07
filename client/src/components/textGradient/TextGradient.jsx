@@ -8,7 +8,7 @@ const TextGradient = (data) => {
                 gradient={['to left', 'lightblue, #EAECEC']}
                 style={
                     data?.size
-                        ? { fontSize: `${data?.size}px`, fontWeight: '700' }
+                        ? { fontSize: `${data?.size}`, fontWeight: '700' }
                         : { fontWeight: '700' }
                 }
             >

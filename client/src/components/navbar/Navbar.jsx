@@ -17,7 +17,7 @@ const Navbar = () => {
                     >
                         <TextGradient
                             text={`Booze Game`}
-                            size={50}
+                            size={'12vw'}
                         ></TextGradient>
                     </div>
 
