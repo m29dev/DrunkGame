@@ -18,20 +18,6 @@ const ThreeFiberDice = () => {
         ]
     )
 
-    const Floor = () => {
-        const [floor] = usePlane(() => ({
-            mass: 1,
-            position: [0, 0, 0],
-            type: 'Static',
-        }))
-
-        return (
-            <mesh ref={floor}>
-                <meshStandardMaterial />
-            </mesh>
-        )
-    }
-
     const CubeColor = () => {
         const [ref] = useBox(() => ({
             mass: 1,
@@ -48,8 +34,8 @@ const ThreeFiberDice = () => {
         })
 
         return (
-            <mesh ref={ref}>
-                <boxGeometry attach="geometry" args={[3, 3, 3]} />
+            <mesh ref={(ref, meshColorRef)}>
+                <boxGeometry attach="geometry" args={[1, 1, 1]} />
 
                 <meshStandardMaterial attach="material-0" map={cube_1} />
                 <meshStandardMaterial attach="material-1" map={cube_2} />
@@ -68,32 +54,45 @@ const ThreeFiberDice = () => {
         }))
         return (
             <mesh ref={ref}>
-                <planeGeometry args={[100, 100]}></planeGeometry>
-            </mesh>
-        )
-    }
-
-    function Cube(props) {
-        const [ref] = useBox(() => ({ mass: 1, position: [0, 5, 0], ...props }))
-        return (
-            <mesh ref={ref}>
-                <boxGeometry />
+                <planeGeometry args={[1000, 1000]} />
+                <shadowMaterial color="#171717" transparent opacity={0.4} />
             </mesh>
         )
     }
 
     return (
         <>
-            <Canvas>
+            {/* <Canvas
+                shadows
+                dpr={[1, 2]}
+                gl={{ alpha: false }}
+                camera={{ position: [0, 1, 5], fov: 100 }}
+            >
+                <color attach="background" args={['lightblue']} />
                 <ambientLight position={[5, 5, 5]} />
                 <directionalLight position={[10, 10, 10]} />
                 <Physics>
-                    {/* <CubeColor></CubeColor>
-                    <Floor></Floor> */}
-
                     <Plane></Plane>
                     <Cube></Cube>
                     <CubeColor></CubeColor>
+                </Physics>
+            </Canvas> */}
+            <Canvas
+                shadows
+                dpr={[1, 2]}
+                gl={{ alpha: false }}
+                camera={{ position: [-1, 5, 5], fov: 45 }}
+            >
+                <color attach="background" args={['rgb(26, 31, 53)']} />
+                <ambientLight />
+                <directionalLight
+                    position={[10, 10, 10]}
+                    castShadow
+                    shadow-mapSize={[2048, 2048]}
+                />
+                <Physics>
+                    <Plane position={[0, -2.5, 0]} />
+                    <CubeColor position={[-1, 10, -5]} />
                 </Physics>
             </Canvas>
         </>

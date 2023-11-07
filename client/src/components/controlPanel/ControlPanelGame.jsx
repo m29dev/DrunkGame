@@ -59,14 +59,15 @@ const ControlPanelGame = () => {
                                     !roomInfo?.gameCurrentAnswer &&
                                     roomInfo?.gameCurrentCategory !==
                                         'challenge' && (
-                                        <p
+                                        <h4
                                             style={{
                                                 margin: '0px',
+                                                fontSize: '16px',
                                                 fontWeight: '600',
                                             }}
                                         >
                                             Choose an Answer
-                                        </p>
+                                        </h4>
                                     )}
 
                                 {/* Display Next Player btn after round is played */}
@@ -91,13 +92,34 @@ const ControlPanelGame = () => {
                     {roomInfo?.game &&
                         authInfo?._id !==
                             roomInfo?.gameCurrentUser?.[0]?._id && (
-                            <h4
-                                style={{
-                                    margin: '0px',
-                                    fontSize: '16px',
-                                    fontWeight: '600',
-                                }}
-                            >{`${roomInfo?.gameCurrentUser?.[0]?.userId}'s round`}</h4>
+                            <>
+                                {!roomInfo?.gameCurrentDice && (
+                                    <>
+                                        <h4
+                                            style={{
+                                                margin: '0px',
+                                                fontSize: '16px',
+                                                fontWeight: '600',
+                                            }}
+                                        >
+                                            {`${roomInfo?.gameCurrentUser?.[0]?.userId}'s rolling the dice`}
+                                        </h4>
+                                    </>
+                                )}
+
+                                {roomInfo?.gameCurrentDice &&
+                                    !roomInfo?.gameCurrentAssignment?.[0] && (
+                                        <h4
+                                            style={{
+                                                margin: '0px',
+                                                fontSize: '16px',
+                                                fontWeight: '600',
+                                            }}
+                                        >
+                                            {`${roomInfo?.gameCurrentUser?.[0]?.userId}'s drawing a Category Card`}
+                                        </h4>
+                                    )}
+                            </>
                         )}
 
                     {/* if !game display Ready Btn */}
