@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap');
 
 :root,
 html,
@@ -7,12 +8,74 @@ body {
     height: 100vh;
     color-scheme: light dark;
     /* color: rgba(255, 255, 255, 0.87); */
-    color: #eaecec;
+    /* color: #eaecec; */
     /* background-color: #242424; */
     /* background-color: rgb(37, 44, 74); */
 
-    background-color: rgb(26, 31, 53);
+    /* background-color: rgb(26, 31, 53); */
     /* background-color: rgb(107, 91, 223); */
 
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
+    /* font-family: 'Noto Color Emoji', sans-serif !important; */
+}
+
+/* THEME COLORS */
+body {
+    /* background-color: rgb(0, 0, 0) !important; */
+    /* background-image: url('/backgroundImage/pxfuel_1.jpg'); */
+    color: #eaecec !important;
+    /* background: linear-gradient(
+        180deg,
+        rgba(0, 5, 87, 1) 0%,
+        rgb(5, 5, 5) 100%
+    ) !important; */
+
+    background-color: rgba(0, 36, 134, 1) !important;
+    background-image: radial-gradient(
+        circle,
+        rgb(69, 0, 134) 0%,
+        rgb(0, 0, 0) 100%
+    ) !important;
+}
+
+.navbar {
+    /* background-color: rgb(240, 248, 255); */
+    background-color: rgba(0, 36, 134, 1) !important;
+    background-image: linear-gradient(
+        0,
+        rgb(69, 0, 134) 0%,
+        rgb(37, 0, 71) 100%
+    ) !important;
+}
+
+.control-panel {
+    /* background: rgba(0, 5, 87, 1) !important; */
+    /* background: rgba(0, 5, 87, 1) !important; */
+    /* background: linear-gradient(90deg, blueviolet 0%, violet 100%) !important; */
+    background: rgb(19, 19, 19) !important;
+    border: 2px solid violet;
+
+    -webkit-box-shadow: 1px 4px 24px 0px rgb(0, 0, 0);
+    -moz-box-shadow: 1px 4px 24px 0px rgb(0, 0, 0);
+    box-shadow: 1px 4px 24px 0px rgb(0, 0, 0);
+}
+
+.btn-pick-item {
+    /* background: linear-gradient(
+        270deg,
+        lightblue 0%,
+        rgb(195, 130, 238) 100%
+    ) !important; */
+    /* background-color: blueviolet !important; */
+
+    background-color: rgb(69, 0, 134) !important;
+    border: 2px solid rgba(255, 255, 255, 0) !important;
+}
+
+.btn-control-panel {
+    background-color: rgba(84, 86, 117, 0) !important;
+}
+
+.btn:active {
+    transform: translateY(1px);
 }

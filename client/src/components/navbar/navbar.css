@@ -1,5 +1,5 @@
 /* NAVBAR */
-.navbar {
+/* .navbar {
     width: 100vw;
     height: 170px;
     display: flex;
@@ -14,16 +14,28 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     padding: 0px 30px !important;
+} */
+
+.navbar {
+    width: 100vw;
+    height: 100px !important;
+    display: flex;
+    align-items: center;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 0px 30px !important;
+
+    -webkit-box-shadow: 1px 4px 24px 0px rgb(0, 0, 0);
+    -moz-box-shadow: 1px 4px 24px 0px rgb(0, 0, 0);
+    box-shadow: 1px 4px 24px 0px rgb(0, 0, 0);
 }
+
 .category-navbar {
-    margin-top: 12px;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
 }
 .category-navbar p,
 .paragraph {

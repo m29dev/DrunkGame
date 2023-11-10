@@ -19,17 +19,19 @@ const HomePage = () => {
         <>
             <div className="box-home">
                 {/* navbar */}
-                <div className="navbar" style={{ height: '150px' }}>
+                <div className="navbar">
                     <div
                         className="game-navbar"
                         style={{ justifyContent: 'center' }}
                     >
                         <TextGradient
                             text={`Booze Game`}
-                            size={50}
+                            size={'10vw'}
                         ></TextGradient>
                     </div>
+                </div>
 
+                <div className="box-main" style={{ justifyContent: 'center' }}>
                     {!authInfo && (
                         <div style={{ marginTop: '30px' }}>
                             <Auth></Auth>

@@ -5,11 +5,19 @@ const TextGradient = (data) => {
     return (
         <>
             <LinearGradient
-                gradient={['to left', 'lightblue, #EAECEC']}
+                // gradient={['to left', 'lightblue, #EAECEC']}
+                // gradient={['to left', 'violet, violet']}
+                // gradient={['to right', 'lightblue, violet']}
+                gradient={['to right', 'violet, purple']}
                 style={
                     data?.size
-                        ? { fontSize: `${data?.size}`, fontWeight: '700' }
-                        : { fontWeight: '700' }
+                        ? {
+                              fontSize: `${data?.size}`,
+                              fontWeight: '700',
+                          }
+                        : {
+                              fontWeight: '700',
+                          }
                 }
             >
                 {data?.text}

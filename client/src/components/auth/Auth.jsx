@@ -35,7 +35,7 @@ const Auth = () => {
                     <input
                         className="form-container-input"
                         type="text"
-                        placeholder="Set a nickname"
+                        placeholder="set a nickname..."
                         onChange={(e) => {
                             setNickname(e?.target?.value)
                         }}

@@ -4,10 +4,10 @@ import './game.css'
 import NavbarGame from '../navbar/NavbarGame'
 import ControlPanelGame from '../controlPanel/ControlPanelGame'
 // import ThreeDice from '../../three/threeDice'
-import ThreeFiberDice from '../../three/ThreeFiberDice'
+// import ThreeFiberDice from '../../three/ThreeFiberDice'
 
 const Game = () => {
-    const { authInfo, roomInfo } = useSelector((state) => state.auth)
+    const { authInfo, userInfo, roomInfo } = useSelector((state) => state.auth)
 
     return (
         <>
@@ -29,9 +29,16 @@ const Game = () => {
                 )}
 
                 {/* TEST */}
-                {!roomInfo?.gameCurrentDice && (
+                {/* {!roomInfo?.gameCurrentDice && (
                     <ThreeFiberDice></ThreeFiberDice>
-                )}
+                )} */}
+
+                {/* DISPLAY CURRENT POSITION (PLAYER POINTS) */}
+                {/* {!roomInfo?.gameCurrentAssignment?.[0] && (
+                    <div className="game-board-box">
+                        <div className="game-board">{userInfo?.points}</div>
+                    </div>
+                )} */}
             </div>
 
             <ControlPanelGame></ControlPanelGame>

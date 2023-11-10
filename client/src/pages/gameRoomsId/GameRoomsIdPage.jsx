@@ -115,15 +115,15 @@ const GameRoomsIdPage = () => {
                         >
                             <TextGradient
                                 text={`Booze Game`}
-                                size={50}
+                                size={'10vw'}
                             ></TextGradient>
                         </div>
 
-                        {authInfo && (
+                        {/* {authInfo && (
                             <h1 style={{ marginTop: '30px' }}>
                                 {authInfo?.userId}
                             </h1>
-                        )}
+                        )} */}
                     </div>
 
                     {/* users in the room */}
@@ -138,33 +138,12 @@ const GameRoomsIdPage = () => {
                         )}
                     </div>
 
-                    {/* control panel */}
-                    {/* <div
-                        className="control-panel"
-                        style={{
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <div
-                            className="btn-ready-toggle"
-                            style={
-                                ready
-                                    ? { backgroundColor: 'lightgreen' }
-                                    : { backgroundColor: 'gray' }
-                            }
-                            onClick={readyToggle}
-                        >
-                            {ready ? 'Ready' : 'Not Ready'}
-                        </div>
-                    </div> */}
-
                     <div
                         className="btn-ready-toggle"
                         style={
                             ready
                                 ? { backgroundColor: 'lightgreen' }
-                                : { backgroundColor: 'gray' }
+                                : { backgroundColor: '#191919' }
                         }
                         onClick={readyToggle}
                     >

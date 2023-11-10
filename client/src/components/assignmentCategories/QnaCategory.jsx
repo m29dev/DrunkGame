@@ -47,26 +47,17 @@ const QnaCategory = () => {
                                 <div className="category-answer-pick-box">
                                     {roomInfo?.gameCurrentAssignment?.[0]?.answers?.map(
                                         (item, index) => (
-                                            <Button
-                                                key={index}
-                                                disabled={
-                                                    roomInfo?.gameCurrentAnswer
-                                                        ? true
-                                                        : false
-                                                }
-                                                onClick={() => {
-                                                    handleUserAnswer(index)
-                                                }}
-                                                // className="category-answer-pick-item"
+                                            <div
+                                                // className="pick-item-border-box"
                                                 className={
                                                     !roomInfo?.gameCurrentAnswer
-                                                        ? 'category-answer-pick-item'
+                                                        ? 'pick-item-border-box'
                                                         : roomInfo?.gameCurrentAnswer &&
                                                           abcd[index] ===
                                                               roomInfo
                                                                   ?.gameCurrentAssignment?.[0]
                                                                   ?.correctAnswer
-                                                        ? 'category-answer-pick-item answer-correct'
+                                                        ? 'pick-item-border-box answer-border-correct'
                                                         : roomInfo?.gameCurrentAnswer &&
                                                           abcd[index] ===
                                                               roomInfo?.gameCurrentAnswer &&
@@ -74,14 +65,46 @@ const QnaCategory = () => {
                                                               ?.gameCurrentAssignment?.[0]
                                                               ?.correctAnswer !==
                                                               roomInfo?.gameCurrentAnswer
-                                                        ? 'category-answer-pick-item answer-incorrect'
-                                                        : 'category-answer-pick-item'
+                                                        ? 'pick-item-border-box answer-border-incorrect'
+                                                        : 'pick-item-border-box'
                                                 }
+                                                key={index}
                                             >
-                                                {abcd[index]}
-                                                {`. `}
-                                                {item}
-                                            </Button>
+                                                <Button
+                                                    disabled={
+                                                        roomInfo?.gameCurrentAnswer
+                                                            ? true
+                                                            : false
+                                                    }
+                                                    onClick={() => {
+                                                        handleUserAnswer(index)
+                                                    }}
+                                                    className="category-answer-pick-item btn-pick-item"
+                                                    // className={
+                                                    //     !roomInfo?.gameCurrentAnswer
+                                                    //         ? 'category-answer-pick-item btn-pick-item'
+                                                    //         : roomInfo?.gameCurrentAnswer &&
+                                                    //           abcd[index] ===
+                                                    //               roomInfo
+                                                    //                   ?.gameCurrentAssignment?.[0]
+                                                    //                   ?.correctAnswer
+                                                    //         ? 'category-answer-pick-item answer-correct'
+                                                    //         : roomInfo?.gameCurrentAnswer &&
+                                                    //           abcd[index] ===
+                                                    //               roomInfo?.gameCurrentAnswer &&
+                                                    //           roomInfo
+                                                    //               ?.gameCurrentAssignment?.[0]
+                                                    //               ?.correctAnswer !==
+                                                    //               roomInfo?.gameCurrentAnswer
+                                                    //         ? 'category-answer-pick-item answer-incorrect'
+                                                    //         : 'category-answer-pick-item btn-pick-item'
+                                                    // }
+                                                >
+                                                    {abcd[index]}
+                                                    {`. `}
+                                                    {item}
+                                                </Button>
+                                            </div>
                                         )
                                     )}
                                 </div>

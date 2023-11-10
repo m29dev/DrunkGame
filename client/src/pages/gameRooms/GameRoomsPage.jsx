@@ -118,25 +118,27 @@ const GameRoomsPage = () => {
                     >
                         <TextGradient
                             text={`Booze Game`}
-                            size={50}
+                            size={'10vw'}
                         ></TextGradient>
                     </div>
 
-                    {authInfo && (
-                        <h1 style={{ marginTop: '30px' }}>
-                            {authInfo?.userId}
-                        </h1>
-                    )}
+                    {/* {authInfo && (
+                        <h1 style={{ margin: '0px' }}>{authInfo?.userId}</h1>
+                    )} */}
                 </div>
 
-                <div className="box-main">
+                <div className="box-main" style={{ justifyContent: 'center' }}>
                     {/* join room */}
-                    <label>Join Room</label>
-                    <form className="form-container" onSubmit={handleJoinRoom}>
+                    {/* <label>Join Room</label> */}
+                    <form
+                        className="form-container"
+                        style={{ margin: '20px' }}
+                        onSubmit={handleJoinRoom}
+                    >
                         <input
                             className="form-container-input"
                             type="text"
-                            placeholder="Room ID"
+                            placeholder="room name..."
                             onChange={(e) => {
                                 setRoom(e.target.value)
                             }}
@@ -152,12 +154,11 @@ const GameRoomsPage = () => {
                         </Button>
                     </form>
 
-                    <hr />
-
                     {/* create room  */}
-                    <label>Create Room</label>
+                    {/* <label>Create Room</label> */}
                     <form
                         className="form-container"
+                        style={{ margin: '20px' }}
                         onSubmit={(e) => {
                             e.preventDefault()
                             onRoomCreate()
@@ -166,7 +167,7 @@ const GameRoomsPage = () => {
                         <input
                             className="form-container-input"
                             type="text"
-                            placeholder="Room ID"
+                            placeholder="room name..."
                             onChange={(e) => {
                                 setRoomName(e.target.value)
                             }}

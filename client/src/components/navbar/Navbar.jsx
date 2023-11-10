@@ -8,7 +8,6 @@ const Navbar = () => {
 
     return (
         <>
-            {/* navbar if game = true */}
             {!roomInfo?.game && (
                 <div className="navbar" style={{ height: '150px' }}>
                     <div
@@ -17,7 +16,7 @@ const Navbar = () => {
                     >
                         <TextGradient
                             text={`Booze Game`}
-                            size={'12vw'}
+                            size={'14vw'}
                         ></TextGradient>
                     </div>
 
@@ -28,7 +27,7 @@ const Navbar = () => {
                     )}
 
                     {authInfo && (
-                        <div style={{ marginTop: '30px' }}>
+                        <div style={{ marginTop: '10px' }}>
                             {authInfo?.userId}
                         </div>
                     )}

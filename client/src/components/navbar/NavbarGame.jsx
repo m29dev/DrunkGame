@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import DiceDisplay from '../dice/DiceDisplay'
-import TextGradient from '../textGradient/TextGradient'
 import './navbar.css'
 // import { useOutletContext } from 'react-router-dom'
 
@@ -16,16 +15,19 @@ const NavbarGame = () => {
         <>
             {roomInfo?.game && (
                 <div className="navbar">
-                    <div className="game-navbar">
-                        <h1>{authInfo?.userId}</h1>
+                    {/* DISPLAY IF CURRENT CATEGORY DOES NOT EXIST*/}
+                    {/* {!roomInfo?.gameCurrentCategory && (
+                        <div className="game-navbar">
+                            <h1>{authInfo?.userId}</h1>
 
-                        {/* Display rolled dice */}
-                        {roomInfo?.gameCurrentDice && (
-                            <DiceDisplay></DiceDisplay>
-                        )}
-                    </div>
+                            {roomInfo?.gameCurrentDice && (
+                                <DiceDisplay></DiceDisplay>
+                            )}
+                        </div>
+                    )} */}
 
-                    {roomInfo?.gameCurrentCategory && (
+                    {/* DISPLAY IF CURRENT CATTEGORY EXISTS */}
+                    {/* {roomInfo?.gameCurrentCategory && (
                         <div className="category-navbar">
                             <TextGradient
                                 text={
@@ -40,16 +42,25 @@ const NavbarGame = () => {
                                         ? 'Most Likely To...'
                                         : ''
                                 }
-                                size={`10vw`}
+                                size={`8vw`}
                             ></TextGradient>
                             <div className="paragraph">
                                 <TextGradient
                                     text={`CATEGORY`}
-                                    size={`5vw`}
+                                    size={`4vw`}
                                 ></TextGradient>
                             </div>
                         </div>
-                    )}
+                    )} */}
+
+                    <div className="game-navbar">
+                        <h1>{authInfo?.userId}</h1>
+
+                        {/* Display rolled dice */}
+                        {roomInfo?.gameCurrentDice && (
+                            <DiceDisplay></DiceDisplay>
+                        )}
+                    </div>
                 </div>
             )}
         </>

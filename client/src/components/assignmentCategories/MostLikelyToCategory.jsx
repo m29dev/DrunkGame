@@ -58,16 +58,21 @@ const MostLikelyToCategory = () => {
                                 <div className="category-answer-pick-box">
                                     {roomInfo?.gameCurrentAssignment?.[1]?.usersToVote?.map(
                                         (item, index) => (
-                                            <Button
+                                            <div
+                                                className="pick-item-border-box"
                                                 key={index}
-                                                className="category-answer-pick-item"
-                                                disabled={voted}
-                                                onClick={() => {
-                                                    handleUserSelect(item)
-                                                }}
                                             >
-                                                {item.userId}
-                                            </Button>
+                                                <Button
+                                                    key={index}
+                                                    className="category-answer-pick-item btn-pick-item"
+                                                    disabled={voted}
+                                                    onClick={() => {
+                                                        handleUserSelect(item)
+                                                    }}
+                                                >
+                                                    {item.userId}
+                                                </Button>
+                                            </div>
                                         )
                                     )}
                                 </div>
