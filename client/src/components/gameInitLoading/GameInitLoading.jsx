@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import ProgressBar from '@ramonak/react-progress-bar'
 import './gameInitLoading.css'
 
