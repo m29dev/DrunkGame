@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container'
 //init socket io
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
-import GameInitLoading from './components/gameInitLoading/gameInitLoading'
+import GameInit from './components/gameInitLoading/GameInit'
 // const socket = io('https://drunkgameserver.onrender.com', {
 //     autoConnect: false,
 // })
@@ -29,7 +29,7 @@ function App() {
 
     return (
         <>
-            {!gameInit && <GameInitLoading></GameInitLoading>}
+            {!gameInit && <GameInit></GameInit>}
 
             {gameInit && (
                 <Container className="container-box">
