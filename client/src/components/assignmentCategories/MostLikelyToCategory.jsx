@@ -50,7 +50,9 @@ const MostLikelyToCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                {!roomInfo?.gameCurrentAnswer && !pickedUser && (
+                {!hideCard && <CardShine></CardShine>}
+
+                {hideCard && !roomInfo?.gameCurrentAnswer && !pickedUser && (
                     <div className="category-box">
                         {roomInfo?.gameCurrentAssignment?.[0] && (
                             <>
