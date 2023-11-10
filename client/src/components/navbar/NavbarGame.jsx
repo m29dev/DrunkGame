@@ -54,7 +54,7 @@ const NavbarGame = () => {
                     )} */}
 
                     <div className="game-navbar">
-                        <h1>{authInfo?.userId}</h1>
+                        <h1 style={{ margin: '0px' }}>{authInfo?.userId}</h1>
 
                         {/* Display rolled dice */}
                         {roomInfo?.gameCurrentDice && (

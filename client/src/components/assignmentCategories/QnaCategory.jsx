@@ -2,10 +2,19 @@ import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 import './assignmentCategories.css'
+import CardShine from '../cardShine/CardShine'
+import { useEffect, useState } from 'react'
 
 const QnaCategory = () => {
     const { roomInfo, authInfo } = useSelector((state) => state.auth)
     const [socket] = useOutletContext()
+    const [hideCard, setHideCard] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setHideCard(true)
+        }, 3000)
+    }, [])
 
     const abcd = ['A', 'B', 'C', 'D']
 
@@ -31,7 +40,10 @@ const QnaCategory = () => {
                     </div>
                 )}
 
-                {roomInfo?.gameCurrentAssignment?.[0] &&
+                {!hideCard && <CardShine></CardShine>}
+
+                {hideCard &&
+                    roomInfo?.gameCurrentAssignment?.[0] &&
                     authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
                         <div className="category-box">
                             <>

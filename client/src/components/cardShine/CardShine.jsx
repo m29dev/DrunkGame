@@ -1,33 +1,43 @@
 import { useSelector } from 'react-redux'
 import './cardShine.css'
+import { useCallback, useEffect, useState } from 'react'
 
 // eslint-disable-next-line react/prop-types
 const CardShine = () => {
     const { roomInfo } = useSelector((state) => state.auth)
+    const [canCardToggle, setCanCardToggle] = useState(false)
 
-    const handleCardToggle = () => {
+    const handleCardToggle = useCallback((booleanValue) => {
+        if (!booleanValue) return
+
         document.querySelector('.flip').classList.toggle('card')
         document.querySelector('.flip').classList.toggle('flip-card-inner')
 
         // default front card => toggle card-front with card-back
         document.querySelector('.flip-card-0').classList.toggle('card-hidden')
-
         document.querySelector('.flip-card-1').classList.toggle('card-hidden')
 
-        // default front card => toggle card-front with card-back
-        // document
-        //     .querySelector('.flip-card-1')
-        //     .classList.toggle('flip-card-front')
-        // document
-        //     .querySelector('.flip-card-1')
-        //     .classList.toggle('flip-card-back')
-
         document.querySelector('.shine-front').classList.toggle('shine-back')
-        // document.querySelector('.flip').classList.toggle('card-toggle')
-    }
+    }, [])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCanCardToggle(true)
+            handleCardToggle(true)
+        }, 3000)
+    }, [handleCardToggle])
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         handleCardToggle()
+    //     }, 4000)
+    // }, [handleCardToggle])
 
     return (
-        <div className="contain flip-card" onClick={handleCardToggle}>
+        <div
+            className="contain flip-card"
+            onClick={() => handleCardToggle(canCardToggle)}
+        >
             <div className="flip card">
                 <div className="shine-front"></div>
 

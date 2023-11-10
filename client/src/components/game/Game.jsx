@@ -7,7 +7,7 @@ import ControlPanelGame from '../controlPanel/ControlPanelGame'
 // import ThreeFiberDice from '../../three/ThreeFiberDice'
 
 const Game = () => {
-    const { authInfo, userInfo, roomInfo } = useSelector((state) => state.auth)
+    const { authInfo, roomInfo } = useSelector((state) => state.auth)
 
     return (
         <>
@@ -18,9 +18,7 @@ const Game = () => {
             <div className="game-box">
                 {/* current user round */}
                 {authInfo?._id === roomInfo?.gameCurrentUser?.[0]?._id && (
-                    <div>
-                        <AssignmentDisplay></AssignmentDisplay>
-                    </div>
+                    <AssignmentDisplay></AssignmentDisplay>
                 )}
 
                 {/* other user round */}

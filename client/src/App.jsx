@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container'
 
 //init socket io
 import { io } from 'socket.io-client'
+import { useEffect, useState } from 'react'
+import GameInitLoading from './components/gameInitLoading/gameInitLoading'
 // const socket = io('https://drunkgameserver.onrender.com', {
 //     autoConnect: false,
 // })
@@ -17,12 +19,23 @@ function App() {
     const { authInfo } = useSelector((state) => state.auth)
     socket.auth = { userId: authInfo?.userId, user_id: authInfo?._id }
     socket.connect()
+    const [gameInit, setGameInit] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setGameInit(true)
+        }, 4000)
+    })
 
     return (
         <>
-            <Container className="container-box">
-                <Outlet context={[socket]}></Outlet>
-            </Container>
+            {!gameInit && <GameInitLoading></GameInitLoading>}
+
+            {gameInit && (
+                <Container className="container-box">
+                    <Outlet context={[socket]}></Outlet>
+                </Container>
+            )}
         </>
     )
 }

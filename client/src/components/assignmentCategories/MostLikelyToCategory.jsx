@@ -3,12 +3,20 @@ import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 import './assignmentCategories.css'
+import CardShine from '../cardShine/CardShine'
 
 const MostLikelyToCategory = () => {
     const { roomInfo, authInfo } = useSelector((state) => state.auth)
     const [socket] = useOutletContext()
     const [voted, setVoted] = useState(false)
     const [pickedUser, setPickedUser] = useState(null)
+    const [hideCard, setHideCard] = useState(false)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setHideCard(true)
+        }, 3000)
+    }, [])
 
     const handleUserSelect = (user) => {
         console.log(user._id, user.userId)
