@@ -20,7 +20,7 @@ function App() {
     socket.auth = { userId: authInfo?.userId, user_id: authInfo?._id }
     socket.connect()
     const [gameInit, setGameInit] = useState(false)
-    const [isSafari, setIsSafari] = useState(false)
+    // const [isSafari, setIsSafari] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
@@ -28,20 +28,20 @@ function App() {
         }, 4000)
     })
 
-    useEffect(() => {
-        // Get the user-agent string
-        let userAgentString = navigator.userAgent
-        // Detect Chrome
-        let chromeAgent = userAgentString.indexOf('Chrome') > -1
-        // Detect Safari
-        let safariAgent = userAgentString.indexOf('Safari') > -1
+    // useEffect(() => {
+    //     // Get the user-agent string
+    //     let userAgentString = navigator.userAgent
+    //     // Detect Chrome
+    //     let chromeAgent = userAgentString.indexOf('Chrome') > -1
+    //     // Detect Safari
+    //     let safariAgent = userAgentString.indexOf('Safari') > -1
 
-        if (chromeAgent && safariAgent) safariAgent = false
+    //     if (chromeAgent && safariAgent) safariAgent = false
 
-        console.log('is Chrome? ', chromeAgent)
-        console.log('is Safari? ', safariAgent)
-        setIsSafari(safariAgent)
-    }, [])
+    //     console.log('is Chrome? ', chromeAgent)
+    //     console.log('is Safari? ', safariAgent)
+    //     setIsSafari(safariAgent)
+    // }, [])
 
     return (
         <>
@@ -49,9 +49,10 @@ function App() {
 
             {gameInit && (
                 <Container
-                    className={
-                        isSafari ? 'container-box safari-box' : 'container-box'
-                    }
+                    // className={
+                    //     isSafari ? 'container-box safari-box' : 'container-box'
+                    // }
+                    className="container-box"
                 >
                     <Outlet context={[socket]}></Outlet>
                 </Container>

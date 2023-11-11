@@ -1,7 +1,7 @@
 .container-box {
     /* height: calc(100% - 56px); */
-    height: 100vh !important;
-    max-height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
     max-width: 1000px !important;
     margin: 0px !important;
     margin: auto !important;
@@ -9,9 +9,9 @@
     padding-bottom: 30px !important;
 }
 
-.safari-box {
+/* .safari-box {
     padding-bottom: 130px !important;
-}
+} */
 
 .main-box {
     height: calc(100% - 100px);
