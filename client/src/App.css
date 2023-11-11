@@ -9,6 +9,10 @@
     padding-bottom: 30px !important;
 }
 
+.safari-box {
+    padding-bottom: 130px !important;
+}
+
 .main-box {
     height: calc(100% - 100px);
     width: 100%;
