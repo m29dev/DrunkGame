@@ -9,6 +9,7 @@ const TextGradient = (data) => {
                 // gradient={['to left', 'violet, violet']}
                 // gradient={['to right', 'lightblue, violet']}
                 gradient={['to right', 'violet, purple']}
+                className="text-style"
                 style={
                     data?.size
                         ? {

@@ -18,7 +18,9 @@
 
 .navbar {
     width: 100vw;
+    max-width: 1000px;
     height: 100px !important;
+    margin: auto;
     display: flex;
     align-items: center;
     border-bottom-left-radius: 30px;

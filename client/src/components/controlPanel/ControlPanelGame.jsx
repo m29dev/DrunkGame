@@ -119,6 +119,53 @@ const ControlPanelGame = () => {
                                             {`${roomInfo?.gameCurrentUser?.[0]?.userId}'s drawing a Category Card`}
                                         </h4>
                                     )}
+
+                                {roomInfo?.gameCurrentDice &&
+                                    roomInfo?.gameCurrentAssignment?.[0] &&
+                                    roomInfo?.gameCurrentCategory !==
+                                        'mostLikelyTo' && (
+                                        <h4
+                                            style={{
+                                                margin: '0px',
+                                                fontSize: '16px',
+                                                fontWeight: '600',
+                                            }}
+                                        >
+                                            {`${roomInfo?.gameCurrentUser?.[0]?.userId}'s round`}
+                                        </h4>
+                                    )}
+
+                                {/* if not current user but category is Most Likely To */}
+                                {roomInfo?.gameCurrentDice &&
+                                    roomInfo?.gameCurrentAssignment?.[0] &&
+                                    roomInfo?.gameCurrentCategory ===
+                                        'mostLikelyTo' && (
+                                        <>
+                                            {!roomInfo?.gameCurrentAnswer && (
+                                                <h4
+                                                    style={{
+                                                        margin: '0px',
+                                                        fontSize: '16px',
+                                                        fontWeight: '600',
+                                                    }}
+                                                >
+                                                    Choose an Answer
+                                                </h4>
+                                            )}
+
+                                            {roomInfo?.gameCurrentAnswer && (
+                                                <h4
+                                                    style={{
+                                                        margin: '0px',
+                                                        fontSize: '16px',
+                                                        fontWeight: '600',
+                                                    }}
+                                                >
+                                                    {`${roomInfo?.gameCurrentUser?.[0]?.userId}'s round`}
+                                                </h4>
+                                            )}
+                                        </>
+                                    )}
                             </>
                         )}
 

@@ -34,11 +34,11 @@ const QnaCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                {roomInfo?.gameCurrentUser?.[0]?._id !== authInfo?._id && (
+                {/* {roomInfo?.gameCurrentUser?.[0]?._id !== authInfo?._id && (
                     <div>
                         <h4>{`${roomInfo?.gameCurrentUser?.[0]?.userId}'s Quizz:`}</h4>
                     </div>
-                )}
+                )} */}
 
                 {!hideCard && <CardShine></CardShine>}
 
@@ -125,7 +125,8 @@ const QnaCategory = () => {
                     )}
 
                 {/* non current user */}
-                {roomInfo?.gameCurrentAssignment?.[0] &&
+                {hideCard &&
+                    roomInfo?.gameCurrentAssignment?.[0] &&
                     authInfo?._id !== roomInfo?.gameCurrentUser?.[0]?._id && (
                         <div className="category-box">
                             <>
@@ -141,18 +142,16 @@ const QnaCategory = () => {
                                 <div className="category-answer-pick-box">
                                     {roomInfo?.gameCurrentAssignment?.[0]?.answers?.map(
                                         (item, index) => (
-                                            <Button
-                                                key={index}
-                                                disabled={true}
+                                            <div
                                                 className={
                                                     !roomInfo?.gameCurrentAnswer
-                                                        ? 'category-answer-pick-item'
+                                                        ? 'pick-item-border-box'
                                                         : roomInfo?.gameCurrentAnswer &&
                                                           abcd[index] ===
                                                               roomInfo
                                                                   ?.gameCurrentAssignment?.[0]
                                                                   ?.correctAnswer
-                                                        ? 'category-answer-pick-item answer-correct'
+                                                        ? 'pick-item-border-box answer-border-correct'
                                                         : roomInfo?.gameCurrentAnswer &&
                                                           abcd[index] ===
                                                               roomInfo?.gameCurrentAnswer &&
@@ -160,14 +159,40 @@ const QnaCategory = () => {
                                                               ?.gameCurrentAssignment?.[0]
                                                               ?.correctAnswer !==
                                                               roomInfo?.gameCurrentAnswer
-                                                        ? 'category-answer-pick-item answer-incorrect'
-                                                        : 'category-answer-pick-item'
+                                                        ? 'pick-item-border-box answer-border-incorrect'
+                                                        : 'pick-item-border-box'
                                                 }
+                                                key={index}
                                             >
-                                                {abcd[index]}
-                                                {`. `}
-                                                {item}
-                                            </Button>
+                                                <Button
+                                                    key={index}
+                                                    disabled={true}
+                                                    className="category-answer-pick-item btn-pick-item"
+                                                    // className={
+                                                    //     !roomInfo?.gameCurrentAnswer
+                                                    //         ? 'category-answer-pick-item'
+                                                    //         : roomInfo?.gameCurrentAnswer &&
+                                                    //           abcd[index] ===
+                                                    //               roomInfo
+                                                    //                   ?.gameCurrentAssignment?.[0]
+                                                    //                   ?.correctAnswer
+                                                    //         ? 'category-answer-pick-item answer-correct'
+                                                    //         : roomInfo?.gameCurrentAnswer &&
+                                                    //           abcd[index] ===
+                                                    //               roomInfo?.gameCurrentAnswer &&
+                                                    //           roomInfo
+                                                    //               ?.gameCurrentAssignment?.[0]
+                                                    //               ?.correctAnswer !==
+                                                    //               roomInfo?.gameCurrentAnswer
+                                                    //         ? 'category-answer-pick-item answer-incorrect'
+                                                    //         : 'category-answer-pick-item'
+                                                    // }
+                                                >
+                                                    {abcd[index]}
+                                                    {`. `}
+                                                    {item}
+                                                </Button>
+                                            </div>
                                         )
                                     )}
                                 </div>

@@ -1,14 +1,17 @@
 .assignment-category-box {
     width: 100%;
+    max-width: 1000px !important;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    align-content: center;
 }
 
 .category-box {
     margin-top: 12px;
     width: 100vw;
+    max-width: 1000px !important;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -18,6 +21,7 @@
 
 .category-answer-pick-box {
     width: 100%;
+    max-width: 500px !important;
     display: grid;
     grid-template-columns: 1fr;
     grid-row-gap: 20px;
