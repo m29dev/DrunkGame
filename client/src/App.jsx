@@ -7,13 +7,13 @@ import Container from 'react-bootstrap/Container'
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
 import GameInit from './components/gameInitLoading/GameInit'
-// const socket = io('https://drunkgameserver.onrender.com', {
-//     autoConnect: false,
-// })
-
-const socket = io('http://localhost:3000', {
+const socket = io('https://drunkgameserver.onrender.com', {
     autoConnect: false,
 })
+
+// const socket = io('http://localhost:3000', {
+//     autoConnect: false,
+// })
 
 function App() {
     const { authInfo } = useSelector((state) => state.auth)
