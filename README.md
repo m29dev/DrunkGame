@@ -1,5 +1,5 @@
 <h1 id="title">Drunk Game</h1>
-<p id="description">Drunk Game - It's a multiplayer game to play with friends. Based on board games.</p>
+<p id="description">Multiplayer drunk game - ideally to play on mobile devices with other players in the same room. Based on board games.</p>
 
 <h2>🚀 Demo</h2
 [https://drunkgameclient.onrender.com](https://drunkgameclient.onrender.com)
