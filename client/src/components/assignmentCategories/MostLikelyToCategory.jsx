@@ -50,19 +50,23 @@ const MostLikelyToCategory = () => {
     return (
         <>
             <div className="assignment-category-box">
-                {!hideCard && <CardShine></CardShine>}
+                {!hideCard && !roomInfo?.gameCurrentAnswer && !pickedUser && (
+                    <CardShine></CardShine>
+                )}
 
                 {hideCard && !roomInfo?.gameCurrentAnswer && !pickedUser && (
                     <div className="category-box">
                         {roomInfo?.gameCurrentAssignment?.[0] && (
                             <>
                                 {/* question */}
-                                <h4>
+                                <h4 style={{ textAlign: 'center' }}>
                                     {
                                         roomInfo?.gameCurrentAssignment?.[0]
                                             ?.question
                                     }
                                 </h4>
+
+                                <br />
 
                                 {/* users to pick */}
                                 <div className="category-answer-pick-box">
@@ -75,6 +79,9 @@ const MostLikelyToCategory = () => {
                                                 <Button
                                                     key={index}
                                                     className="category-answer-pick-item btn-pick-item"
+                                                    style={{
+                                                        textAlign: 'center',
+                                                    }}
                                                     disabled={voted}
                                                     onClick={() => {
                                                         handleUserSelect(item)

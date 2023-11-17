@@ -286,7 +286,7 @@ const gameGetCategoryAssignment = async (room_id, socket) => {
             const qnaRes = qnaAll[randomNum]
             if (!qnaRes) return console.log('qna err')
 
-            room.gameCurrentAssignment.push(qnaRes)
+            room.gameCurrentAssignment = [qnaRes]
             roomUpdate = await Room.findByIdAndUpdate(
                 { _id: room_id },
                 {
@@ -305,7 +305,8 @@ const gameGetCategoryAssignment = async (room_id, socket) => {
             if (!challengeRes) return console.log('challenge err')
 
             console.log(2, challengeRes)
-            room.gameCurrentAssignment.push(challengeRes)
+            // room.gameCurrentAssignment.push(challengeRes)
+            room.gameCurrentAssignment = [challengeRes]
             roomUpdate = await Room.findByIdAndUpdate(
                 { _id: room_id },
                 {
@@ -323,7 +324,7 @@ const gameGetCategoryAssignment = async (room_id, socket) => {
             const mostLikelyToRes = mostLikelyToAll[randomNum]
             if (!mostLikelyToRes) return console.log('mostLikelyTo err')
 
-            room.gameCurrentAssignment.push(mostLikelyToRes)
+            room.gameCurrentAssignment = [mostLikelyToRes]
 
             room.gameCurrentAssignment.push({
                 usersToVote: [...room.users],

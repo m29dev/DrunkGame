@@ -76,8 +76,8 @@
     /* border: 2px solid violet; */
     border: 2px solid rgb(81, 0, 128);
     background-color: rgb(32, 32, 32);
-    border-radius: 23px;
-    height: 40px;
+    border-radius: 30px !important;
+    height: 50px;
     width: 100%;
     max-width: 400px;
 
@@ -90,32 +90,33 @@
     display: flex;
     align-items: center;
     border: none !important;
-    border-radius: 23px;
+    border-radius: 30px !important;
     background-color: transparent !important;
-    margin-left: 4px;
+    margin-left: 8px;
     padding: 0px 8px;
 }
 .form-container-input:focus {
     border: none !important;
     border-color: transparent !important;
-    border-radius: 23px;
+    border-radius: 30px !important;
     background-color: transparent !important;
     outline: none;
 }
 .form-container-input::placeholder {
-    color: inherit;
+    color: rgb(209, 209, 209);
 }
 .form-container-btn {
     margin: 0px !important;
     /* background-color: rgb(37, 37, 37) !important; */
     /* background-color: violet !important; */
     background-color: rgb(81, 0, 128) !important;
-    height: 38px !important;
+    height: 48px !important;
+    border-radius: 30px !important;
 }
-.btn:disabled,
+/* .btn:disabled,
 .btn[disabled] {
     color: white !important;
-}
+} */
 
 /* NAVBAR */
 
