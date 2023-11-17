@@ -95,7 +95,6 @@ const MostLikelyToCategory = () => {
                 {roomInfo?.gameCurrentAnswer && pickedUser && (
                     <div className="category-box">
                         <h4>
-                            {`Rabini przemówili...`}
                             <br />
                             {pickedUser?.userId}{' '}
                             {roomInfo?.gameCurrentAssignment?.[0]?.question.slice(
@@ -104,6 +103,9 @@ const MostLikelyToCategory = () => {
                             )}
                             .
                         </h4>
+
+                        <hr />
+
                         <h4>
                             Fantastycznie {pickedUser?.userId}, w nagrode napij
                             się kielona.

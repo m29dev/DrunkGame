@@ -15,7 +15,7 @@ const Navbar = () => {
                         style={{ justifyContent: 'center' }}
                     >
                         <TextGradient
-                            text={`Booze Game`}
+                            text={`Drunk Game`}
                             size={'14vw'}
                         ></TextGradient>
                     </div>

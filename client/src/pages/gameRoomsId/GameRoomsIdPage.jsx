@@ -114,37 +114,32 @@ const GameRoomsIdPage = () => {
                             style={{ justifyContent: 'center' }}
                         >
                             <TextGradient
-                                text={`Booze Game`}
+                                text={`Drunk Game`}
                                 size={'10vw'}
                             ></TextGradient>
                         </div>
-
-                        {/* {authInfo && (
-                            <h1 style={{ marginTop: '30px' }}>
-                                {authInfo?.userId}
-                            </h1>
-                        )} */}
                     </div>
 
                     {/* users in the room */}
                     <div className="box-main">
-                        <h4>Users: </h4>
-                        <br />
-                        {roomInfo?.users?.map(
-                            (user, index) =>
-                                user?.active && (
-                                    <h5 key={index}>{user?.userId}</h5>
-                                )
-                        )}
+                        <div className="box-users">
+                            {roomInfo?.users?.map(
+                                (user, index) =>
+                                    user?.active && (
+                                        <div
+                                            className="user-border-box"
+                                            key={index}
+                                        >
+                                            <h5 key={index}>{user?.userId}</h5>
+                                        </div>
+                                    )
+                            )}
+                        </div>
                     </div>
 
                     <div
                         className="btn-ready-toggle"
-                        style={
-                            ready
-                                ? { backgroundColor: 'lightgreen' }
-                                : { backgroundColor: '#191919' }
-                        }
+                        style={ready ? { borderColor: 'lightgreen' } : {}}
                         onClick={readyToggle}
                     >
                         {ready ? 'Ready' : 'Not Ready'}

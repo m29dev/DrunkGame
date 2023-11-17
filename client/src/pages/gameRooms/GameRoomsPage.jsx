@@ -117,7 +117,7 @@ const GameRoomsPage = () => {
                         style={{ justifyContent: 'center' }}
                     >
                         <TextGradient
-                            text={`Booze Game`}
+                            text={`Drunk Game`}
                             size={'10vw'}
                         ></TextGradient>
                     </div>
